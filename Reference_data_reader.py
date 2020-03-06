@@ -1,7 +1,9 @@
 import scipy.io as spio
+import matplotlib.pyplot as plt
+from Cit_par import *
 import numpy as np
 
-#name of the data file
+#reading the reference data
 'Reference_data.mat'
 
 #Functions for reading and converting the data from .mat to dictionaries.
@@ -39,11 +41,8 @@ def _todict(matobj):
             dict[strg] = elem
     return dict
 
-#Reading the AC data
+#AC data
 reference_data = loadmat('Reference_data.mat')
-
-#possible parameters
-#print(reference_data["flightdata"].keys())
 '''
 The mat file structure has 48 options. Each option is a parameter that is measured. Each option is split up into three options: units, data
 and description. When selecting data one should adhere this format:
@@ -52,23 +51,45 @@ reference_data["flightdata"]["desired parameter to be read"]["data"]
 
 This returns an array with the data
 '''
-def get_data(dataset, measurement, detail = "data"):
-    reference_data = loadmat(dataset)
-    data_list = reference_data["flightdata"][measurement][detail]
 
-<<<<<<< HEAD
-    return data_list
-
-#getting the data
-test_list = get_data("Reference_data.mat", "lh_engine_itt", detail = "data")
-print(test_list[0:10])
-=======
 #getting the kets
-print(reference_data.keys())
+#print(reference_data.keys())
 dictlist = reference_data["flightdata"].keys()
 for i in dictlist:
     print(i,"  ",   reference_data["flightdata"][i]["description"])
 print()
-test_list = reference_data["flightdata"]["lh_engine_FMF"]["description"]
-print(test_list)
->>>>>>> 311729f209a20b13c1def9cd2f1799cb2e00e918
+
+time_in_secs_utc = reference_data["flightdata"]["Gps_utcSec"]["data"]
+yvalues = reference_data["flightdata"]["vane_AOA"]["data"]
+#y2values = reference_data["flightdata"]["Dadc1_alt"]["data"]
+
+TOW = 6500 # THIS VALUE IS GUESSED, WE SHOULD FIND THE REAL VALUE FOR REFERENCE DATA,AND OUR TEST
+
+CL_list = []
+Alpha_list = []
+
+for j in range(len(reference_data["flightdata"]["Gps_utcSec"]["data"])):
+    if reference_data["flightdata"]["Gps_utcSec"]["data"][j]>32000 and reference_data["flightdata"]["Gps_utcSec"]["data"][j] < 32500:
+        altitude = reference_data["flightdata"]["Dadc1_alt"]["data"][j]
+        hp0  = altitude
+        rho    = rho0 * pow( ((1+(lambd * hp0 / Temp0))), (-((g / (lambd*R)) + 1)))
+        Vel =  reference_data["flightdata"]["Dadc1_tas"]["data"][j]
+        Fuel_out_weight = reference_data["flightdata"]["lh_engine_FU"]["data"][j] +  reference_data["flightdata"]["rh_engine_FU"]["data"][j]
+
+
+
+        Aircraft_weight = TOW - Fuel_out_weight
+        Aircraft_weight_newton = Aircraft_weight * g
+        CL = 2 * Aircraft_weight_newton / (rho * Vel ** 2 * S)
+        aoa = reference_data["flightdata"]["vane_AOA"]["data"][j]
+        if CL>1:
+            print(altitude, rho, Vel, Fuel_out_weight, CL)
+        CL_list.append(CL)
+        Alpha_list.append(aoa)
+
+
+plt.plot(time_in_secs_utc,yvalues)
+plt.show()
+
+plt.plot(Alpha_list,CL_list)
+plt.show()
