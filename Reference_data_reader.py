@@ -51,10 +51,11 @@ reference_data["flightdata"]["desired parameter to be read"]["data"]
 This returns an array with the data
 '''
 
-
 #getting the kets
 print(reference_data.keys())
-print(reference_data["flightdata"].keys())
+dictlist = reference_data["flightdata"].keys()
+for i in dictlist:
+    print(i,"  ",   reference_data["flightdata"][i]["description"])
 print()
-test_list = reference_data["flightdata"]["vane_AOA"]["units"]
+test_list = reference_data["flightdata"]["lh_engine_FMF"]["description"]
 print(test_list)
