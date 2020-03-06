@@ -1,8 +1,7 @@
 import scipy.io as spio
-
 import numpy as np
 
-#reading the reference data
+#name of the data file
 'Reference_data.mat'
 
 #Functions for reading and converting the data from .mat to dictionaries.
@@ -40,8 +39,11 @@ def _todict(matobj):
             dict[strg] = elem
     return dict
 
-#AC data
+#Reading the AC data
 reference_data = loadmat('Reference_data.mat')
+
+#possible parameters
+#print(reference_data["flightdata"].keys())
 '''
 The mat file structure has 48 options. Each option is a parameter that is measured. Each option is split up into three options: units, data
 and description. When selecting data one should adhere this format:
@@ -50,11 +52,12 @@ reference_data["flightdata"]["desired parameter to be read"]["data"]
 
 This returns an array with the data
 '''
+def get_data(dataset, measurement, detail = "data"):
+    reference_data = loadmat(dataset)
+    data_list = reference_data["flightdata"][measurement][detail]
 
+    return data_list
 
-#getting the kets
-print(reference_data.keys())
-print(reference_data["flightdata"].keys())
-print()
-test_list = reference_data["flightdata"]["vane_AOA"]["units"]
-print(test_list)
+#getting the data
+test_list = get_data("Reference_data.mat", "lh_engine_itt", detail = "data")
+print(test_list[0:10])
