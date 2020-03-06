@@ -56,8 +56,19 @@ def get_data(dataset, measurement, detail = "data"):
     reference_data = loadmat(dataset)
     data_list = reference_data["flightdata"][measurement][detail]
 
+<<<<<<< HEAD
     return data_list
 
 #getting the data
 test_list = get_data("Reference_data.mat", "lh_engine_itt", detail = "data")
 print(test_list[0:10])
+=======
+#getting the kets
+print(reference_data.keys())
+dictlist = reference_data["flightdata"].keys()
+for i in dictlist:
+    print(i,"  ",   reference_data["flightdata"][i]["description"])
+print()
+test_list = reference_data["flightdata"]["lh_engine_FMF"]["description"]
+print(test_list)
+>>>>>>> 311729f209a20b13c1def9cd2f1799cb2e00e918
