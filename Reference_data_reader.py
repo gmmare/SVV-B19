@@ -60,23 +60,23 @@ for i in dictlist:
 print()
 
 time_in_secs_utc = reference_data["flightdata"]["Gps_utcSec"]["data"]
-yvalues = reference_data["flightdata"]["vane_AOA"]["data"]
+yvalues = reference_data["flightdata"]["Dadc1_alt"]["data"]
 #y2values = reference_data["flightdata"]["Dadc1_alt"]["data"]
 
-TOW = 6500 # THIS VALUE IS GUESSED, WE SHOULD FIND THE REAL VALUE FOR REFERENCE DATA,AND OUR TEST
+TOW = 6689 # Weight for reference data
 
 CL_list = []
 Alpha_list = []
 
+print(reference_data["flightdata"]["lh_engine_FU"]["units"])
+
 for j in range(len(reference_data["flightdata"]["Gps_utcSec"]["data"])):
     if reference_data["flightdata"]["Gps_utcSec"]["data"][j]>32000 and reference_data["flightdata"]["Gps_utcSec"]["data"][j] < 32500:
         altitude = reference_data["flightdata"]["Dadc1_alt"]["data"][j]
-        hp0  = altitude
+        hp0  = altitude *0.3048
         rho    = rho0 * pow( ((1+(lambd * hp0 / Temp0))), (-((g / (lambd*R)) + 1)))
-        Vel =  reference_data["flightdata"]["Dadc1_tas"]["data"][j]
-        Fuel_out_weight = reference_data["flightdata"]["lh_engine_FU"]["data"][j] +  reference_data["flightdata"]["rh_engine_FU"]["data"][j]
-
-
+        Vel =  reference_data["flightdata"]["Dadc1_tas"]["data"][j] *0.51444
+        Fuel_out_weight = (reference_data["flightdata"]["lh_engine_FU"]["data"][j] +  reference_data["flightdata"]["rh_engine_FU"]["data"][j])*0.453592
 
         Aircraft_weight = TOW - Fuel_out_weight
         Aircraft_weight_newton = Aircraft_weight * g
