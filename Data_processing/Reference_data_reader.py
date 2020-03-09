@@ -1,7 +1,7 @@
 import scipy.io as spio
 import matplotlib.pyplot as plt
 from Cit_par import *
-import numpy as np
+import numpy as npni
 
 #reading the reference data
 'Reference_data.mat'
