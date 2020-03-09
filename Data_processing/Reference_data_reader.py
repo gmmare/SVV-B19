@@ -6,7 +6,7 @@ import numpy as np
 #reading the reference data
 'Reference_data.mat'
 
-#Functions for reading and converting the data from .mat to dictionaries.
+#Functions for reading and converting the data from .mat to dictionaries. Obtained from: https://stackoverflow.com/questions/7008608/scipy-io-loadmat-nested-structures-i-e-dictionaries
 def loadmat(filename):
     '''
     this function should be called instead of direct spio.loadmat
