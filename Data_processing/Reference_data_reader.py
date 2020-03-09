@@ -42,6 +42,13 @@ def _todict(matobj):
     return dict
 
 #AC data
+
+def get_data(dataset, measurement, detail = "data"):
+    reference_data = loadmat(dataset)
+    data_list = reference_data["flightdata"][measurement][detail]
+
+    return data_list
+
 reference_data = loadmat('Reference_data.mat')
 '''
 The mat file structure has 48 options. Each option is a parameter that is measured. Each option is split up into three options: units, data
