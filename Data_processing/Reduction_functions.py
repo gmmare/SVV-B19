@@ -26,16 +26,13 @@ def red_velocity(hp, V_c, T_m, rho):
 
 
     P = P0 * ((1 + ((lambd * hp)/Temp0)) ** (-g/(lambd*R)))
-    print(P)
-
-    M =sqrt( * ((1 + (P0/P) * (((1 + (gam - 1)/(2*gam)) * (rho0/P0) * (V_c ** 2)) ** ((gam - 1)/gam) - 1) ** ((gam-1)/gam)) -1))
-
-    (2 / (gam - 1))
-    1 + (P0/P)
-    1 + ((gam - 1)/(2*gam)
+    #
+    # (2 / (gam - 1))
+    # 1 + (P0/P)
+    # (2 / (gam - 1)) * ((1 + (P0/P)*(((1 + (gam - 1)/(2*gam) * (rho0/P0) * (V_c ** 2)) ** (gam/(gam - 1))) - 1)) ** ((gam - 1)/gam) - 1)
 
 
-    M =
+    M = sqrt((2 / (gam - 1)) * ((1 + (P0/P)*(((1 + (gam - 1)/(2*gam) * (rho0/P0) * (V_c ** 2)) ** (gam/(gam - 1))) - 1)) ** ((gam - 1)/gam) - 1))
 
 
 

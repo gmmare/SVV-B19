@@ -2,10 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="58651ed1-705d-4b09-8580-af68ca145ee4" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/Data_processing/Reduction_functions.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Cit_par.py" beforeDir="false" afterPath="$PROJECT_DIR$/Cit_par.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Data_processing/Reference_data_reader.py" beforeDir="false" afterPath="$PROJECT_DIR$/Data_processing/Reference_data_reader.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Data_processing/Reduction_functions.py" beforeDir="false" afterPath="$PROJECT_DIR$/Data_processing/Reduction_functions.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -16,12 +14,12 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Data_processing/data_processing.py">
+        <entry file="file://$PROJECT_DIR$/Cit_par.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state>
-              <caret selection-end-line="4" selection-end-column="40" />
+            <state relative-caret-position="-834">
+              <caret line="10" column="12" selection-start-line="10" selection-start-column="12" selection-end-line="10" selection-end-column="12" />
               <folding>
-                <element signature="e#0#31#0" expanded="true" />
+                <element signature="e#0#18#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -30,34 +28,10 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Data_processing/Reduction_functions.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="411">
-              <caret line="34" column="26" lean-forward="true" selection-start-line="34" selection-start-column="26" selection-end-line="34" selection-end-column="26" />
+            <state relative-caret-position="202">
+              <caret line="32" lean-forward="true" selection-start-line="28" selection-end-line="32" />
               <folding>
                 <element signature="e#0#31#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Data_processing/Reference_data_reader.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="442">
-              <caret line="101" column="12" lean-forward="true" selection-start-line="101" selection-start-column="12" selection-end-line="101" selection-end-column="12" />
-              <folding>
-                <element signature="e#0#23#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Cit_par.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-425">
-              <caret line="10" column="22" selection-start-line="10" selection-start-column="22" selection-end-line="10" selection-end-column="22" />
-              <folding>
-                <element signature="e#0#18#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -108,12 +82,6 @@
               <item name="SVV-B19" type="b2602c69:ProjectViewProjectNode" />
               <item name="SVV-B19" type="462c0819:PsiDirectoryNode" />
               <item name="Data_processing" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="SVV-B19" type="b2602c69:ProjectViewProjectNode" />
-              <item name="SVV-B19" type="462c0819:PsiDirectoryNode" />
-              <item name="Data_processing" type="462c0819:PsiDirectoryNode" />
-              <item name="Reference_data_reader.py" type="8704e2dd:PyFileNode" />
             </path>
           </expand>
           <select />
@@ -341,8 +309,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Cit_par.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-425">
-          <caret line="10" column="22" selection-start-line="10" selection-start-column="22" selection-end-line="10" selection-end-column="22" />
+        <state relative-caret-position="-834">
+          <caret line="10" column="12" selection-start-line="10" selection-start-column="12" selection-end-line="10" selection-end-column="12" />
           <folding>
             <element signature="e#0#18#0" expanded="true" />
           </folding>
@@ -351,8 +319,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Data_processing/Reduction_functions.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="411">
-          <caret line="34" column="26" lean-forward="true" selection-start-line="34" selection-start-column="26" selection-end-line="34" selection-end-column="26" />
+        <state relative-caret-position="202">
+          <caret line="32" lean-forward="true" selection-start-line="28" selection-end-line="32" />
           <folding>
             <element signature="e#0#31#0" expanded="true" />
           </folding>
