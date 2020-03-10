@@ -8,7 +8,7 @@ import matplotlib.pyplot as plt
 
 # Stationary flight condition
 
-hp0    =    1   	      # pressure altitude in the stationary flight condition [m]
+hp0    =    1   	  # pressure altitude in the stationary flight condition [m]
 V0     =   1          # true airspeed in the stationary flight condition [m/sec]
 alpha0 =    1         # angle of attack in the stationary flight condition [rad]
 th0    =   1          # pitch angle in the stationary flight condition [rad]
