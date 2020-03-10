@@ -2,20 +2,38 @@ from math import *
 import numpy as np
 from control.matlab import *
 import matplotlib.pyplot as plt
-
+import Reference_data_reader_num_model 
 # Citation 550 - Linear simulation
 
 # xcg = 0.25 * c
 
 # Stationary flight condition
 
-hp0    =    5862.791773674935 *0.3048	      # pressure altitude in the stationary flight condition [m]
-V0     =    0.514444444 * 177.10160557043372         # true airspeed in the stationary flight condition [m/sec]
-alpha0 =    5.047869299072158 *np.pi/180        # angle of attack in the stationary flight condition [rad]
-th0    =    3.487237402960242*np.pi/180        # pitch angle in the stationary flight condition [rad]
+Start_hour_Phugoid, Start_min_Phugoid, Start_sec_Phugoid=
+Start_hour_DR, Start_min_DR, Start_sec_DR=
+Start_hour_SP, Start_min_SP Start_sec_SP=
+
+test_list_tas, test_list_alt, theta_list, angle_of_attack_list,test_list_pitchrate, delta_a, delta_r, delta_e=Reference_data_reader_num_model.get_lists(tas,alt,pitch,AOA,d_a,d_r,d_e,t) #gets the list of all avriables irrespective of time
+
+a='Phugoid' #Phugoid, DR, SP
+
+if a='Phugoid':
+    V0,hp0,th0,alpha0,PR,inputs_de=Reference_data_reader_num_model.get_Phugoid(test_list_tas, test_list_alt, theta_list, angle_of_attack_list, t, start_hour, start_min, start_sec, end_hour, end_min, end_sec)
+    hours,minu,sec=Start_hour_Phugoid, Start_min_Phugoid, Start_sec_Phugoid
+elif a='DR':    
+    V0,hp0,th0,alpha0,PR,inputs_da,inputs_dr=Reference_data_reader_num_model.get_DR(test_list_tas, test_list_alt, theta_list, angle_of_attack_list, t, start_hour, start_min, start_sec, end_hour, end_min, end_sec)
+    hours,minu,sec=Start_hour_DR, Start_min_DR, Start_sec_DR
+elif a='SP':
+    V0,hp0,th0,alpha0,PR,inputs_de=Reference_data_reader_num_model.get_SP(test_list_tas, test_list_alt, theta_list, angle_of_attack_list, t, start_hour, start_min, start_sec, end_hour, end_min, end_sec)
+    hours,minu,sec=Start_hour_SP, Start_min_SP, Start_sec_SP
+
+#hp0: pressure altitude in the stationary flight condition [m]
+#V0: true airspeed in the stationary flight condition [m/sec]
+#alpha0: angle of attack in the stationary flight condition [rad]
+#th0: pitch angle in the stationary flight condition [rad]
 
 # Aircraft mass
-m      =      6208.879543162097    # mass [kg] #mass at 30 min
+m      =      Reference_data_reader_num_model.get_mass(hours,minu,sec)   # mass [kg] #mass at 30 min
 
 # aerodynamic properties
 e      =   0.8          # Oswald factor [ ]
@@ -135,7 +153,7 @@ C = np.array([[1, 0, 0, 0],
               [0, 0, 1, 0],
               [0, 0, 0, 1]])
 D = (np.linalg.inv(C_extra)).dot(C3)
-print(np.linalg.eigvals(A))
+
 
 sys=ss(A,B,C,D)
 
@@ -164,40 +182,37 @@ C_a = np.array([[1, 0, 0, 0],
               [0, 0, 1, 0],
               [0, 0, 0, 1]])
 D_a =(np.linalg.inv(C_extra_a)).dot(C3)
-print(np.linalg.eigvals(A_a))
 
-'''
-#Response for symmetric flight
-x0=np.matrix([[V0],[alpha0], [th0], [0.05]]) 
-t=np.arange(0.0,1000.01,1) 
 
-#Defining inputs
-w1=1
-w2=2
-u1 = np.sin(t*w1) 
-u2 = np.sin(t*w2)
-
-y1=initial(sys,t,x0)  
-
-speed=[]
-#print(len(t))
-#print(len(y1[0]))
-
-for i in range(len(y1[0])):
-    speed.append(y1[0][i][0])
+if a='Phugoid' or a='SP':
+    #Response for symmetric flight
+    x0=np.matrix([[V0],[alpha0], [th0], [PR]]) 
+    t=np.arange(0.0,10*len(inputs_da)-0.1,0.1) 
+    sys=ss(A,B,C,D)
     
-y1,tdum,xdum=lsim(sys,U=u1,T=t) 
-y2,tdum,xdum=lsim(sys,U=u2,T=t)
-plt.plot(t,speed)
-plt.show()
-plt.plot(t,y1,t,y2)
-plt.plot()
-'''
+    #Defining inputs
+    u1 = np.sin(t*w1) 
+    y1=initial(sys,t,x0)  
+        
+    y1,tdum,xdum=lsim(sys,U=u1,T=t)
+    plt.plot(t,speed)
+    plt.show()
 
-#starting tas, alt, pitch, aoa, time (sec), mass
-#171.30657236187153 5901.040529995785 8.478089398438776 5.914765769730046 3237.0 6266.500016181866 #Phugoid
-#177.10160557043372 5862.791773674935 3.487237402960242 5.047869299072158 3717.0 6208.879543162097 #Dutch Roll
-#175.2228241367164 5853.042471866842 5.565115261585568 5.812438264793599 3635.0 6218.7233594426825 #Short Period
+    print(np.linalg.eigvals(A))
+
+elif a='DR':
+    #Response for symmetric flight
+    x0=np.matrix([[V0],[alpha0], [th0], [PR]]) 
+    t=np.arange(0.0,10*len(inputs_da)-0.1,0.1) 
+    sys=ss(A_a,B_a,C_a,D_a)
+    
+    #Defining inputs
+    u1 = inputs_da
+    y1=initial(sys,t,x0)  
+        
+    y1,tdum,xdum=lsim(sys,U=u1,T=t)
+    plt.plot(t,speed)
+    plt.show()
 
 #eigen values
 

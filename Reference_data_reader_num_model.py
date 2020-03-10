@@ -59,8 +59,8 @@ def get_value(hour,minu,sec):
     index=(hour*3600+minu*60+sec)*10-90
     return index
 
-def get_kv(lst1,lst2,lst3,lst4,lst5, index):
-    return lst1[index], lst2[index], lst3[index], lst4[index], lst5[index]
+def get_kv(lst1,lst2,lst3,lst4,lst5,lst6, index):
+    return lst1[index], lst2[index], lst3[index], lst4[index], lst5[index],lst6[index]
 
 def get_iv(lst1,lst2,lst3,index,index_end):
     inputs_da=[]
@@ -74,12 +74,13 @@ def get_iv(lst1,lst2,lst3,index,index_end):
     return inputs_da,inputs_de,inputs_dr
 
 
-def get_lists(tas,alt,pitch,AOA,d_a,d_r,d_e,t):
+def get_lists(tas,alt,pitch,AOA,PR,d_a,d_r,d_e,t):
     
     test_list_tas = reference_data["flightdata"][str(tas)]["data"]
     test_list_alt=reference_data["flightdata"][str(alt)]["data"]
     theta_list=reference_data["flightdata"][str(pitch)]["data"]
     angle_of_attack_list=reference_data["flightdata"][str(AOA)]["data"]
+    test_list_pitchrate=reference_data["flightdata"][str(PR)]["data"]
 
     delta_a=reference_data["flightdata"][str(d_a)]["data"]
     delta_r=reference_data["flightdata"][str(d_r)]["data"]
@@ -87,33 +88,34 @@ def get_lists(tas,alt,pitch,AOA,d_a,d_r,d_e,t):
 
     t=reference_data["flightdata"][str(t)]["data"]
 
-    return test_list_tas, test_list_alt, theta_list, angle_of_attack_list, delta_a, delta_r, delta_e
+    return test_list_tas, test_list_alt, theta_list, angle_of_attack_list,test_list_pitchrate,  delta_a, delta_r, delta_e
 
 
 
-
+#symmetric
 def get_Phugoid(test_list_tas, test_list_alt, theta_list, angle_of_attack_list, t, start_hour, start_min, start_sec, end_hour, end_min, end_sec): #Phugoid motion
     index=get_value(start_hour,start_min,start_sec) #0,53,57
     index_end=get_value(end_hour,end_min,end_sec) #0,58,0
-    Phugoid_tas, Phugoid_alt, Phugoid_theta, Phugoid_aoa, Phugoid_time =get_kv(test_list_tas, test_list_alt,theta_list, angle_of_attack_list,t,index)
-    Phugoid_inputs_da, Phugoid_inputs_de, Phugoid_inputs_dr=get_iv(delta_a, delta_e, delta_r, index, index_end)
-    return Phugoid_tas, Phugoid_alt, Phugoid_theta, Phugoid_aoa, Phugoid_time, Phugoid_inputs_da, Phugoid_inputs_de, Phugoid_inputs_dr
+    Phugoid_tas, Phugoid_alt, Phugoid_theta, Phugoid_aoa,Phugoid_PR, Phugoid_time =get_kv(test_list_tas, test_list_alt,theta_list, angle_of_attack_list,t,index)
+    Phugoid_inputs_de=get_iv(delta_a, delta_e, delta_r, index, index_end)[1]
+    return Phugoid_tas, Phugoid_alt, Phugoid_theta, Phugoid_aoa,Phugoid_PR, Phugoid_time, Phugoid_inputs_de
 
 
 def get_DR(test_list_tas, test_list_alt, theta_list, angle_of_attack_list, t, start_hour, start_min, start_sec, end_hour, end_min, end_sec): #Dutch Roll motion
     index=get_value(start_hour,start_min,start_sec) #1,1,57
     index_end=get_value(end_hour,end_min,end_sec) #1,2,18
-    DR_tas, DR_alt, DR_theta, DR_aoa, DR_time =get_kv(test_list_tas, test_list_alt,theta_list, angle_of_attack_list, t, index)
-    DR_inputs_da, DR_inputs_de, DR_inputs_dr=get_iv(delta_a, delta_e, delta_r, index, index_end)
-    return Phugoid_tas, Phugoid_alt, Phugoid_theta, Phugoid_aoa, Phugoid_time, Phugoid_inputs_da, Phugoid_inputs_de, Phugoid_inputs_dr
+    DR_tas, DR_alt, DR_theta, DR_aoa, SP_PR, DR_time =get_kv(test_list_tas, test_list_alt,theta_list, angle_of_attack_list, t, index)
+    lst=get_iv(delta_a, delta_e, delta_r, index, index_end)
+    DR_inputs_da,DR_inputs_dr=lst[0], lst[2]
+    return DR_tas, DR_alt, DR_theta, DR_aoa, DR_PR, DR_time, DR_inputs_da, DR_inputs_dr
 
 
-def get_DR(test_list_tas, test_list_alt, theta_list, angle_of_attack_list, t, start_hour, start_min, start_sec, end_hour, end_min, end_sec): #Short Period motion
+def get_SP(test_list_tas, test_list_alt, theta_list, angle_of_attack_list, t, start_hour, start_min, start_sec, end_hour, end_min, end_sec): #Short Period motion
     index=get_value(start_hour,start_min,start_sec) #1,0,35
     index_end=get_value(end_hour,end_min,end_sec) #1,1,28
-    SP_tas, SP_alt, SP_theta, SP_aoa, SP_time =get_kv(test_list_tas, test_list_alt,theta_list, angle_of_attack_list,t,index)
+    SP_tas, SP_alt, SP_theta, SP_aoa,SP_PR, SP_time =get_kv(test_list_tas, test_list_alt,theta_list, angle_of_attack_list,t,index)
     SP_inputs_da, SP_inputs_de, SP_inputs_dr=get_iv(delta_a, delta_e, delta_r, index, index_end)
-    return Phugoid_tas, Phugoid_alt, Phugoid_theta, Phugoid_aoa, Phugoid_time, Phugoid_inputs_da, Phugoid_inputs_de, Phugoid_inputs_dr
+    return SP_tas, SP_alt, SP_theta, SP_aoa, SP_PR, SP_time, SP_inputs_da, SP_inputs_de, SP_inputs_dr
 
 
 def get_mass(hours,minu,sec):
@@ -134,11 +136,7 @@ def get_mass(hours,minu,sec):
             Aircraft_weight = TOW - Fuel_out_weight
     return Aircraft_weight 
 
-#print(Phugoid_tas, Phugoid_alt, Phugoid_theta, Phugoid_aoa,Phugoid_time, get_mass(0,53,57))
-#print(DR_tas, DR_alt, DR_theta, DR_aoa, DR_time, get_mass(1,1,57))
-#print(SP_tas, SP_alt, SP_theta, SP_aoa, SP_time, get_mass(1,0,35))
 
-print(Phugoid_inputs_da, Phugoid_inputs_de, Phugoid_inputs_dr)
 
 
 
