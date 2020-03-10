@@ -12,31 +12,21 @@ R       = 287.05            # specific gas constant [m^2/sec^2K]
 g       = 9.81              # [m/sec^2] (gravity constant)
 gam     = 1.4               # ratio of specific heats for air [-]
 P0      = 101325            # pressure at sea level [Pa]
+W_s     = 60500             # Standard weight in N
+m_fs    = 0.048             # standard fuel flow in kg/sec
 
 def red_velocity(hp, V_c, T_m, rho):
     '''
-
     :param hp: pressure height
     :param V_c: calibrated  velocity
     :param T_m: measured temperature
     :param rho: density
-    :return: equivilant velocity
+    :return: equivalant velocity
     '''
 
-
-
     P = P0 * ((1 + ((lambd * hp)/Temp0)) ** (-g/(lambd*R)))
-    #
-    # (2 / (gam - 1))
-    # 1 + (P0/P)
-    # (2 / (gam - 1)) * ((1 + (P0/P)*(((1 + (gam - 1)/(2*gam) * (rho0/P0) * (V_c ** 2)) ** (gam/(gam - 1))) - 1)) ** ((gam - 1)/gam) - 1)
-
 
     M = sqrt((2 / (gam - 1)) * ((1 + (P0/P)*(((1 + (gam - 1)/(2*gam) * (rho0/P0) * (V_c ** 2)) ** (gam/(gam - 1))) - 1)) ** ((gam - 1)/gam) - 1))
-
-
-
-
 
     T = T_m / ((1 + (gam-1)/2) * (M ** 2))
 
@@ -46,4 +36,16 @@ def red_velocity(hp, V_c, T_m, rho):
 
     return V_e
 
-print(red_velocity(1000, 60, 285, 1.033))
+def red_mass(V_e, W):
+    '''
+    :param V_e: equivalent airspeed
+    :param W: weight of the aircraft in [N]
+    :return: equivalent airspeed to be used in the elevator trim curve
+    '''
+    V_e2 = V_e * sqrt(W_s/W)
+
+    return V_e2
+
+def red_elev_defl():
+
+    delta_e_eq = - 1/C_m_delta * (C_m_0  + (C_m_alpha/C_n_alpha) * (W/(0.5 * rho * (V_e ** 2) * S)) + C_m_delta_f * delta_f + C_m_T_c * T_c_s)
