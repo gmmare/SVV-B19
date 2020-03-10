@@ -147,7 +147,7 @@ C1_a = np.array([[(CYbdot-2*mub)*b/V0, 0, 0, 0],
                [0, 0, -2*mub*KX2*(b/V0)**2, 2*mub*KXZ*(b/V0)**2],
                [Cnbdot*b/V0, 0, 2*mub*KXZ*(b/V0)**2, -2*mub*KZ2*(b/V0)**2]])
 C2_a = np.array([[CYb, CL, CYp*b/(2*V0), (CYr-4*mub)*b/(2*V0)],
-               [0, 0, (1-b/(2*V0)), 0],
+               [0, 0, b/(2*V0), 0],
                [Clb, 0, Clp*b/(2*V0), Clr*b/(2*V0)],
                [Cnb, 0, Cnp*b/(2*V0), Cnr*b/(2*V0)]])
 C3_a = np.array([[CYda, CYdr],
@@ -166,6 +166,12 @@ D_a = np.array([[0, 0], [0, 0], [0, 0], [0, 0]])
 sys_a = control.ss(A_a, B_a, C_a, D_a)
 eival_a = np.linalg.eigvals(A_a)
 
+stp = np.linspace(0, 100, num=1001)
+forz = control.forced_response(sys, stp)[1]
+ini = control.initial_response(sys)[1]
+step = control.step_response(sys)[1]
+impuls = control.impulse_response(sys)[1]
 
+#print(impuls)
 print(eival)
 print(eival_a)
