@@ -1,6 +1,7 @@
 from math import *
 import numpy as np
 import matplotlib.pyplot as plt
+import control
 
 # Citation 550 - Linear simulation
 
@@ -8,13 +9,13 @@ import matplotlib.pyplot as plt
 
 # Stationary flight condition
 
-hp0    =    1   	      # pressure altitude in the stationary flight condition [m]
-V0     =   1          # true airspeed in the stationary flight condition [m/sec]
+hp0    =    1525  	      # pressure altitude in the stationary flight condition [m]
+V0     =   93.211          # true airspeed in the stationary flight condition [m/sec]
 alpha0 =    1         # angle of attack in the stationary flight condition [rad]
-th0    =   1          # pitch angle in the stationary flight condition [rad]
+th0    =   0.08337          # pitch angle in the stationary flight condition [rad]
 
 # Aircraft mass
-m      =    1         # mass [kg]
+m      =   6443.7         # mass [kg]
 
 # aerodynamic properties
 e      =   0.8          # Oswald factor [ ]
@@ -116,14 +117,14 @@ Cndr   =  -0.0939
 
 #Symmetric
 
-C1 = np.array([[-2*muc*c, 0, 0, 0],
+C1 = np.array([[-2*muc*c/V0**2, 0, 0, 0],
       [0, (CZa-2*muc)*c/V0, 0, 0],
       [0, 0, -c/V0, 0],
-      [0, Cmadot*c/V0, 0, -2*muc*KY2]])
-C2 = np.array([[CXu*V0, CXa, CZ0, CXq*V0/c],
-      [CZu*V0, CZa, -CX0, V0/c*(CZq+2*muc)],
-      [0, 0, 0, V0/c],
-      [Cmu*V0, Cma, 0, Cmq*V0/c]])
+      [0, Cmadot*c/V0, 0, -2*muc*KY2*(c/V0)**2]])
+C2 = np.array([[CXu/V0, CXa, CZ0, CXq*c/V0],
+      [CZu/V0, CZa, -CX0, c/V0*(CZq+2*muc)],
+      [0, 0, 0, c/V0],
+      [Cmu/V0, Cma, 0, Cmq*c/V0]])
 C3 = np.array([[CXde], [CZde], [0], [Cmde]])
 
 
@@ -135,18 +136,20 @@ C = np.array([[1, 0, 0, 0],
               [0, 0, 0, 1]])
 D = np.array([[0], [0], [0], [0]])
 
+sys = control.ss(A, B, C ,D)
+eival = np.linalg.eigvals(A)
 
 
 #A-Symmetric (_a)
 
 C1_a = np.array([[(CYbdot-2*mub)*b/V0, 0, 0, 0],
                [0, -0.5*b/V0, 0, 0],
-               [0, 0, -8*mub*KX2, 8*mub*KXZ],
-               [Cnbdot*b/V0, 0, 8*mub*KXZ, -8*mub*KZ2]])
-C2_a = np.array([[CYb, CL, CYp*2*V0/b, (CYr-4*mub)*2*V0/b],
-               [0, 0, (1-2*V0/b), 0],
-               [Clb, 0, Clp*2*V0/b, Clr*2*V0/b],
-               [Cnb, 0, Cnp*2*V0/b, Cnr*2*V0/b]])
+               [0, 0, -2*mub*KX2*(b/V0)**2, 2*mub*KXZ*(b/V0)**2],
+               [Cnbdot*b/V0, 0, 2*mub*KXZ*(b/V0)**2, -2*mub*KZ2*(b/V0)**2]])
+C2_a = np.array([[CYb, CL, CYp*b/(2*V0), (CYr-4*mub)*b/(2*V0)],
+               [0, 0, (1-b/(2*V0)), 0],
+               [Clb, 0, Clp*b/(2*V0), Clr*b/(2*V0)],
+               [Cnb, 0, Cnp*b/(2*V0), Cnr*b/(2*V0)]])
 C3_a = np.array([[CYda, CYdr],
                [0, 0],
                [Clda, Cldr],
@@ -160,5 +163,9 @@ C_a = np.array([[1, 0, 0, 0],
               [0, 0, 0, 1]])
 D_a = np.array([[0, 0], [0, 0], [0, 0], [0, 0]])
 
+sys_a = control.ss(A_a, B_a, C_a, D_a)
+eival_a = np.linalg.eigvals(A_a)
 
 
+print(eival)
+print(eival_a)
