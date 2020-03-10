@@ -2,14 +2,19 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="58651ed1-705d-4b09-8580-af68ca145ee4" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/SVV-B19.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/SVV-B19.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Reference_data_reader.py" beforeDir="false" afterPath="$PROJECT_DIR$/Reference_data_reader.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Data_processing/Reference_data_reader.py" beforeDir="false" afterPath="$PROJECT_DIR$/Data_processing/Reference_data_reader.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="CoverageDataManager">
+    <SUITE FILE_PATH="coverage/SVV_B19$Reference_data_reader__1_.coverage" NAME="Reference_data_reader (1) Coverage Results" MODIFIED="1583857376171" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Data_processing" />
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
@@ -22,25 +27,35 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Cit_par.py">
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/Data_processing/Reference_data_reader.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1384">
-              <caret line="29" column="18" selection-start-line="29" selection-start-column="18" selection-end-line="29" selection-end-column="18" />
+            <state relative-caret-position="39">
+              <caret line="109" column="33" selection-start-line="109" selection-start-column="33" selection-end-line="109" selection-end-column="33" />
               <folding>
-                <element signature="e#0#18#0" expanded="true" />
+                <element signature="e#0#23#0" expanded="true" />
+                <element signature="e#2335#3288#0" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/Reference_data_reader.py">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/../../Year 2 LR/Project/x1plot.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="444">
-              <caret line="80" column="2" selection-start-line="80" selection-start-column="2" selection-end-line="80" selection-end-column="2" />
+            <state relative-caret-position="306">
+              <caret line="18" selection-start-line="18" selection-end-line="18" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Cit_par.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="117">
+              <caret line="45" column="30" selection-start-line="45" selection-start-column="26" selection-end-line="45" selection-end-column="30" />
               <folding>
-                <element signature="e#0#23#0" expanded="true" />
+                <element signature="e#0#18#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -55,6 +70,11 @@
       </list>
     </option>
   </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>temp</find>
+    </findStrings>
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
@@ -62,13 +82,14 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/Reference_data_reader.py" />
+        <option value="$PROJECT_DIR$/Data_processing/Reference_data_reader.py" />
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds">
-    <option name="y" value="23" />
-    <option name="width" value="1663" />
-    <option name="height" value="956" />
+  <component name="ProjectFrameBounds" extendedState="6">
+    <option name="x" value="-9" />
+    <option name="width" value="998" />
+    <option name="height" value="1048" />
   </component>
   <component name="ProjectView">
     <navigator proportions="" version="1">
@@ -81,6 +102,11 @@
             <path>
               <item name="SVV-B19" type="b2602c69:ProjectViewProjectNode" />
               <item name="SVV-B19" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="SVV-B19" type="b2602c69:ProjectViewProjectNode" />
+              <item name="SVV-B19" type="462c0819:PsiDirectoryNode" />
+              <item name="Data_processing" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -104,7 +130,29 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.Reference_data_reader">
+  <component name="RunManager" selected="Python.Reference_data_reader (1)">
+    <configuration name="Reference_data_reader (1)" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="SVV-B19" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Data_processing" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Data_processing/Reference_data_reader.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <configuration name="Reference_data_reader" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="SVV-B19" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -117,6 +165,7 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Reference_data_reader.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
@@ -138,6 +187,7 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Test_file.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
@@ -149,6 +199,7 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.Reference_data_reader (1)" />
         <item itemvalue="Python.Reference_data_reader" />
         <item itemvalue="Python.Test_file" />
       </list>
@@ -164,6 +215,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1583416665247</updated>
+      <workItem from="1583769298947" duration="7685000" />
     </task>
     <task id="LOCAL-00001" summary="changed data reading into a function">
       <created>1583487556386</created>
@@ -179,12 +231,12 @@
       <option name="project" value="LOCAL" />
       <updated>1583499763172</updated>
     </task>
-    <task id="LOCAL-00003" summary="added reference data reading file">
-      <created>1583422502698</created>
+    <task id="LOCAL-00003" summary="adjusted the file due to errors">
+      <created>1583769403913</created>
       <option name="number" value="00003" />
       <option name="presentableId" value="LOCAL-00003" />
       <option name="project" value="LOCAL" />
-      <updated>1583422502698</updated>
+      <updated>1583769403913</updated>
     </task>
     <task id="LOCAL-00004" summary="test with branch">
       <created>1583423011016</created>
@@ -200,31 +252,40 @@
       <option name="project" value="LOCAL" />
       <updated>1583426157511</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
+  <component name="TimeTrackingManager">
+    <option name="totallyTimeSpent" value="7685000" />
+  </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="23" width="1663" height="956" extended-state="0" />
-    <editor active="true" />
+    <frame x="-7" y="-7" width="782" height="838" extended-state="0" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.2496955" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.1301939" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
+      <window_info anchor="bottom" id="Docker" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Database Changes" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.3298611" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.39930555" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.5439094" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.398017" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.3298611" />
       <window_info anchor="bottom" id="Version Control" order="7" weight="0.3298611" />
-      <window_info anchor="bottom" id="Terminal" order="8" weight="0.3298611" />
+      <window_info anchor="bottom" id="Terminal" order="8" weight="0.3286119" />
       <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" />
-      <window_info anchor="bottom" id="Python Console" order="10" />
+      <window_info anchor="bottom" id="Python Console" order="10" weight="0.30028328" />
+      <window_info anchor="right" id="Database" />
+      <window_info anchor="right" id="SciView" weight="0.06375839" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
     </layout>
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="changed data reading into a function" />
@@ -232,12 +293,9 @@
     <option name="LAST_COMMIT_MESSAGE" value="adjusted the file due to errors" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$USER_HOME$/Downloads/matlab.mat">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-16329" />
-      </provider>
-    </entry>
+    <entry file="file://$USER_HOME$/Downloads/matlab.mat" />
     <entry file="file://$PROJECT_DIR$/matlab.mat" />
+    <entry file="file://$PROJECT_DIR$/Reference_data_reader.py" />
     <entry file="file://$PROJECT_DIR$/Test_file.py">
       <provider selected="true" editor-type-id="text-editor">
         <state>
@@ -245,22 +303,30 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/../../Year 2 LR/Project/x1plot.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="306">
+          <caret line="18" selection-start-line="18" selection-end-line="18" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/Cit_par.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1384">
-          <caret line="29" column="18" selection-start-line="29" selection-start-column="18" selection-end-line="29" selection-end-column="18" />
+        <state relative-caret-position="117">
+          <caret line="45" column="30" selection-start-line="45" selection-start-column="26" selection-end-line="45" selection-end-column="30" />
           <folding>
             <element signature="e#0#18#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Reference_data_reader.py">
+    <entry file="file://$PROJECT_DIR$/Data_processing/Reference_data_reader.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="444">
-          <caret line="80" column="2" selection-start-line="80" selection-start-column="2" selection-end-line="80" selection-end-column="2" />
+        <state relative-caret-position="39">
+          <caret line="109" column="33" selection-start-line="109" selection-start-column="33" selection-end-line="109" selection-end-column="33" />
           <folding>
             <element signature="e#0#23#0" expanded="true" />
+            <element signature="e#2335#3288#0" />
           </folding>
         </state>
       </provider>
