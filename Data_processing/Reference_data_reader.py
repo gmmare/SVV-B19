@@ -62,11 +62,11 @@ def get_stat_data(filename, start_line, endline):
     for j in range(start_line-2, endline-2):
         row = []
         for i in range(3,10):
-            value = data_df.iloc[j][i]
+            value = float(data_df.iloc[j][i])
             row.append(value)
         stat_data.append(row)
 
-    return stat_data
+    return np.array(stat_data)
 
 
 reference_data = loadmat('Reference_data.mat')
