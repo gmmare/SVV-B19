@@ -47,6 +47,12 @@ def _todict(matobj):
 
 #AC data
 def get_data(dataset, measurement, detail = "data"):
+    '''
+    :param dataset: matlab file containing all measured parameters (str)
+    :param measurement: which measurement you want to now (str)
+    :param detail: optional if you want to now the units
+    :return: list with lists containing all the data
+    '''
     reference_data = loadmat(dataset)
     data_list = reference_data["flightdata"][measurement][detail]
 
@@ -54,6 +60,12 @@ def get_data(dataset, measurement, detail = "data"):
 
 #stationary data from the excell file
 def get_stat_data(filename, start_line, endline):
+    '''
+    :param filename: excell file with stationary data
+    :param start_line: line of the excel file you want to begin with reading
+    :param endline: line of the excel file you want to begin with reading
+    :return: numpy array with data
+    '''
     data = pd.read_excel(filename)
     data_df = pd.DataFrame(data)
 
