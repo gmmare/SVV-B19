@@ -8,32 +8,57 @@ import Reference_data_reader_num_model
 # xcg = 0.25 * c
 
 # Stationary flight condition
+tas,alt,pitch,AOA,PR,d_a,d_r,d_e,t='Dadc1_tas', 'Dadc1_alt', 'Ahrs1_Pitch', 'vane_AOA', 'Ahrs1_bPitchRate', 'delta_a', 'delta_r', 'delta_e', 'time' 
+side_slip, roll_angle, roll_rate, yaw_rate='Fms1_trueHeading', 'Ahrs1_Roll','Ahrs1_bRollRate', 'Ahrs1_bYawRate'
 
-Start_hour_Phugoid, Start_min_Phugoid, Start_sec_Phugoid=
-Start_hour_DR, Start_min_DR, Start_sec_DR=
-Start_hour_SP, Start_min_SP Start_sec_SP=
+#Starting times of motions
+Start_hour_Phugoid, Start_min_Phugoid, Start_sec_Phugoid=0,53,57
+Start_hour_DR, Start_min_DR, Start_sec_DR=1,1,57
+Start_hour_SP, Start_min_SP, Start_sec_SP=1,0,35
 
-test_list_tas, test_list_alt, theta_list, angle_of_attack_list,test_list_pitchrate, delta_a, delta_r, delta_e=Reference_data_reader_num_model.get_lists(tas,alt,pitch,AOA,d_a,d_r,d_e,t) #gets the list of all avriables irrespective of time
+End_hour_Phugoid, End_min_Phugoid, End_sec_Phugoid=0,58,0
+End_hour_DR, End_min_DR, End_sec_DR=1,2,18
+End_hour_SP, End_min_SP, End_sec_SP=1,1,28
 
-a='Phugoid' #Phugoid, DR, SP
+#Getting the lists of variables
 
-if a='Phugoid':
-    V0,hp0,th0,alpha0,PR,inputs_de=Reference_data_reader_num_model.get_Phugoid(test_list_tas, test_list_alt, theta_list, angle_of_attack_list, t, start_hour, start_min, start_sec, end_hour, end_min, end_sec)
-    hours,minu,sec=Start_hour_Phugoid, Start_min_Phugoid, Start_sec_Phugoid
-elif a='DR':    
-    V0,hp0,th0,alpha0,PR,inputs_da,inputs_dr=Reference_data_reader_num_model.get_DR(test_list_tas, test_list_alt, theta_list, angle_of_attack_list, t, start_hour, start_min, start_sec, end_hour, end_min, end_sec)
-    hours,minu,sec=Start_hour_DR, Start_min_DR, Start_sec_DR
-elif a='SP':
-    V0,hp0,th0,alpha0,PR,inputs_de=Reference_data_reader_num_model.get_SP(test_list_tas, test_list_alt, theta_list, angle_of_attack_list, t, start_hour, start_min, start_sec, end_hour, end_min, end_sec)
-    hours,minu,sec=Start_hour_SP, Start_min_SP, Start_sec_SP
+test_list_tas, test_list_alt, theta_list, angle_of_attack_list,test_list_pitchrate, delta_a, delta_r, delta_e,t=Reference_data_reader_num_model.get_lists(tas,alt,pitch,AOA,PR,d_a,d_r,d_e,t) #gets the list of all avriables irrespective of time
+side_slip_list,roll_angle_list,roll_rate_list,yaw_rate_list=Reference_data_reader_num_model.get_lists_asymmetric(side_slip, roll_angle, roll_rate, yaw_rate)
 
+
+
+a='Phugoid' #Phugoid, DR, SP       tas,alt,pitch,AOA,PR,d_a,d_r,d_e,t
+
+if a=='Phugoid':
+    start_hour,start_minu,start_sec=Start_hour_Phugoid, Start_min_Phugoid, Start_sec_Phugoid
+    end_hour,end_minu,end_sec=End_hour_Phugoid, End_min_Phugoid, End_sec_Phugoid
+    V0,hp0,th0,alpha0,PR,inputs_de, time=Reference_data_reader_num_model.get_Phugoid(test_list_tas, test_list_alt, theta_list, angle_of_attack_list,test_list_pitchrate, t, start_hour, start_minu, start_sec, end_hour, end_minu, end_sec, delta_a, delta_e, delta_r)
+elif a=='DR':
+    start_hour,start_minu,start_sec=Start_hour_DR, Start_min_DR, Start_sec_DR
+    end_hour,end_minu,end_sec=End_hour_DR, End_min_DR, End_sec_DR
+    V0,hp0,th0,alpha0,PR,inputs_da,inputs_dr,time=Reference_data_reader_num_model.get_DR(test_list_tas, test_list_alt, theta_list, angle_of_attack_list,test_list_pitchrate, t, start_hour, start_minu, start_sec, end_hour, end_minu, end_sec, delta_a, delta_e, delta_r)
+    side_slip0,roll0,rollrate0,yawrate0=Reference_data_reader_num_model.get_DRasym(side_slip_list,roll_angle_list,roll_rate_list,yaw_rate_list, t, start_hour, start_minu, start_sec, end_hour, end_minu, end_sec)
+    
+    inputs_asym=[]
+    for i in range(len(inputs_dr)):
+        inputs_asym.append([inputs_da[i],inputs_dr[i]])
+        
+    inputs_asym=np.array(inputs_asym)
+
+elif a=='SP':
+    start_hour,start_minu,start_sec=Start_hour_SP, Start_min_SP, Start_sec_SP
+    end_hour,end_minu,end_sec=End_hour_SP, End_min_SP, End_sec_SP
+    V0,hp0,th0,alpha0,PR,inputs_de,time=Reference_data_reader_num_model.get_SP(test_list_tas, test_list_alt, theta_list, angle_of_attack_list, test_list_pitchrate, t, start_hour, start_minu, start_sec, end_hour, end_minu, end_sec, delta_a, delta_e, delta_r)
+ 
 #hp0: pressure altitude in the stationary flight condition [m]
 #V0: true airspeed in the stationary flight condition [m/sec]
 #alpha0: angle of attack in the stationary flight condition [rad]
 #th0: pitch angle in the stationary flight condition [rad]
+    
+
 
 # Aircraft mass
-m      =      Reference_data_reader_num_model.get_mass(hours,minu,sec)   # mass [kg] #mass at 30 min
+m      =      Reference_data_reader_num_model.get_mass(start_hour,start_minu,start_sec,t,test_list_alt,test_list_tas)   # mass [kg] #mass at 30 min
 
 # aerodynamic properties
 e      =   0.8          # Oswald factor [ ]
@@ -152,12 +177,9 @@ C = np.array([[1, 0, 0, 0],
               [0, 1, 0, 0],
               [0, 0, 1, 0],
               [0, 0, 0, 1]])
-D = (np.linalg.inv(C_extra)).dot(C3)
+D = np.array([[0],[0],[0],[0]])
 
-
-sys=ss(A,B,C,D)
-
-
+print(np.linalg.eigvals(A))
 #A-Symmetric (_a)
 C1_a = np.array([[(CYbdot-2*mub)*b/V0, 0, 0, 0],
                [0, -0.5*b/V0, 0, 0],
@@ -172,6 +194,7 @@ C3_a = np.array([[CYda, CYdr],
                [Clda, Cldr],
                [Cnda, Cndr]])
 
+
 C_extra_a=C2_a+C1_a
 
 
@@ -181,54 +204,55 @@ C_a = np.array([[1, 0, 0, 0],
               [0, 1, 0, 0],
               [0, 0, 1, 0],
               [0, 0, 0, 1]])
-D_a =(np.linalg.inv(C_extra_a)).dot(C3)
+D_a = np.array([[0,0],[0,0],[0,0],[0,0]])
 
 
-if a='Phugoid' or a='SP':
+if a=='Phugoid' or a=='SP':
     #Response for symmetric flight
     x0=np.matrix([[V0],[alpha0], [th0], [PR]]) 
-    t=np.arange(0.0,10*len(inputs_da)-0.1,0.1) 
+    #t=np.arange(0.0,len(inputs_de)/1000,0.001)
+    t0=time[0]
+    t1=time[-1]
+    step=0.1
+    t=np.arange(0,len(inputs_de)/1000,0.001)
+    print(len(t))
+    
+          
     sys=ss(A,B,C,D)
     
     #Defining inputs
-    u1 = np.sin(t*w1) 
-    y1=initial(sys,t,x0)  
+    u1 = inputs_de
+    print(len(u1))
+    #y1=initial(sys,t,x0)  
         
-    y1,tdum,xdum=lsim(sys,U=u1,T=t)
-    plt.plot(t,speed)
-    plt.show()
-
-    print(np.linalg.eigvals(A))
-
-elif a='DR':
-    #Response for symmetric flight
-    x0=np.matrix([[V0],[alpha0], [th0], [PR]]) 
-    t=np.arange(0.0,10*len(inputs_da)-0.1,0.1) 
-    sys=ss(A_a,B_a,C_a,D_a)
+    tdum,y1,xdum=forced_response(sys,t,u1,x0)
     
-    #Defining inputs
-    u1 = inputs_da
-    y1=initial(sys,t,x0)  
-        
-    y1,tdum,xdum=lsim(sys,U=u1,T=t)
+    speed=[]
+    for i in range(len(y1)):
+        speed.append(y1[i][0])
     plt.plot(t,speed)
     plt.show()
 
-#eigen values
+    
 
+elif a=='DR':
+    #Response for symmetric flight
+    x0=np.matrix([[side_slip0],[roll0],[rollrate0],[yawrate0]]) 
+    t0=time[0]
+    t1=time[-1]
+    step=0.1
+    t=np.arange(t0,t1+step,step)
 
-#phugoid
-'''
-(array([-1.28404348+1.89207559j, -1.28404348-1.89207559j,
-        0.00547665+0.13477211j,  0.00547665-0.13477211j])
+    sys=ss(A_a,B_a,C_a,D_a)
 
-#Dutch Roll
-(array([-4.25400348+0.j        , -0.33354818+2.04343478j,
-       -0.33354818-2.04343478j, -0.01082982+0.j        ])
+    print(1)
+    #Defining inputs
+    u1 = inputs_asym
+    y1=initial(sys,t,x0)
+    
+        
+    y1,tdum,xdum=lsim(sys,U=u1,T=t)
+    plt.plot(t,y1[0])
+    plt.show()
 
-
-#short period
-(array([-1.32306705+1.94243638j, -1.32306705-1.94243638j,
-        0.00344641+0.13572562j,  0.00344641-0.13572562j])
-'''
 

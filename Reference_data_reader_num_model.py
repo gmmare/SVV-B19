@@ -56,26 +56,35 @@ This returns an array with the data
 '''
 
 def get_value(hour,minu,sec):
+    
     index=(hour*3600+minu*60+sec)*10-90
+
     return index
 
 def get_kv(lst1,lst2,lst3,lst4,lst5,lst6, index):
     return lst1[index], lst2[index], lst3[index], lst4[index], lst5[index],lst6[index]
 
-def get_iv(lst1,lst2,lst3,index,index_end):
+def get_kv2(lst1,lst2,lst3,lst4,lst5, index):
+    return lst1[index], lst2[index], lst3[index], lst4[index], lst5[index]
+
+def get_iv(lst1,lst2,lst3,index,index_end,t):
     inputs_da=[]
     inputs_dr=[]
     inputs_de=[]
+    time=[]
     for i in range(index,index_end+1):
         inputs_da.append(lst1[i])
         inputs_de.append(lst2[i])
         inputs_dr.append(lst3[i])
+        time.append(t[i])
         
-    return inputs_da,inputs_de,inputs_dr
+        
+    print(len(time)) 
+    return inputs_da,inputs_de,inputs_dr,time
 
-
+#symmetric
 def get_lists(tas,alt,pitch,AOA,PR,d_a,d_r,d_e,t):
-    
+    reference_data=get_rf('Reference_data.mat')
     test_list_tas = reference_data["flightdata"][str(tas)]["data"]
     test_list_alt=reference_data["flightdata"][str(alt)]["data"]
     theta_list=reference_data["flightdata"][str(pitch)]["data"]
@@ -88,37 +97,61 @@ def get_lists(tas,alt,pitch,AOA,PR,d_a,d_r,d_e,t):
 
     t=reference_data["flightdata"][str(t)]["data"]
 
-    return test_list_tas, test_list_alt, theta_list, angle_of_attack_list,test_list_pitchrate,  delta_a, delta_r, delta_e
+    return test_list_tas, test_list_alt, theta_list, angle_of_attack_list,test_list_pitchrate,  delta_a, delta_r, delta_e, t
+
+#asymmetric
+def get_lists_asymmetric(side_slip, roll_angle, roll_rate, yaw_rate):
+    reference_data=get_rf('Reference_data.mat')
+    side_slip_list = reference_data["flightdata"][str(side_slip)]["data"]
+    roll_angle_list=reference_data["flightdata"][str(roll_angle)]["data"]
+    roll_rate_list=reference_data["flightdata"][str(roll_rate)]["data"]
+    yaw_rate_list=reference_data["flightdata"][str(yaw_rate)]["data"]
+
+    return side_slip_list,roll_angle_list,roll_rate_list,yaw_rate_list
+
 
 
 
 #symmetric
-def get_Phugoid(test_list_tas, test_list_alt, theta_list, angle_of_attack_list, t, start_hour, start_min, start_sec, end_hour, end_min, end_sec): #Phugoid motion
+def get_Phugoid(test_list_tas, test_list_alt, theta_list, angle_of_attack_list,pitchrate_list, t, start_hour, start_min, start_sec, end_hour, end_min, end_sec, delta_a, delta_e, delta_r): #Phugoid motion
     index=get_value(start_hour,start_min,start_sec) #0,53,57
     index_end=get_value(end_hour,end_min,end_sec) #0,58,0
-    Phugoid_tas, Phugoid_alt, Phugoid_theta, Phugoid_aoa,Phugoid_PR, Phugoid_time =get_kv(test_list_tas, test_list_alt,theta_list, angle_of_attack_list,t,index)
-    Phugoid_inputs_de=get_iv(delta_a, delta_e, delta_r, index, index_end)[1]
-    return Phugoid_tas, Phugoid_alt, Phugoid_theta, Phugoid_aoa,Phugoid_PR, Phugoid_time, Phugoid_inputs_de
+    Phugoid_tas, Phugoid_alt, Phugoid_theta, Phugoid_aoa,Phugoid_PR, Phugoid_time =get_kv(test_list_tas, test_list_alt,theta_list, angle_of_attack_list,pitchrate_list,t,index)
+    Phugoid_inputs_de, Phugoid_time=get_iv(delta_a, delta_e, delta_r, index, index_end,t)[1], get_iv(delta_a, delta_e, delta_r, index, index_end,t)[-1]
+    return Phugoid_tas, Phugoid_alt, Phugoid_theta, Phugoid_aoa,Phugoid_PR, Phugoid_inputs_de, Phugoid_time
 
 
-def get_DR(test_list_tas, test_list_alt, theta_list, angle_of_attack_list, t, start_hour, start_min, start_sec, end_hour, end_min, end_sec): #Dutch Roll motion
+def get_DR(test_list_tas, test_list_alt, theta_list, angle_of_attack_list,test_list_pitchrate, t, start_hour, start_min, start_sec, end_hour, end_min, end_sec, delta_a, delta_e, delta_r): #Dutch Roll motion
     index=get_value(start_hour,start_min,start_sec) #1,1,57
     index_end=get_value(end_hour,end_min,end_sec) #1,2,18
-    DR_tas, DR_alt, DR_theta, DR_aoa, SP_PR, DR_time =get_kv(test_list_tas, test_list_alt,theta_list, angle_of_attack_list, t, index)
-    lst=get_iv(delta_a, delta_e, delta_r, index, index_end)
-    DR_inputs_da,DR_inputs_dr=lst[0], lst[2]
-    return DR_tas, DR_alt, DR_theta, DR_aoa, DR_PR, DR_time, DR_inputs_da, DR_inputs_dr
+    print(index,index_end)
+    DR_tas, DR_alt, DR_theta, DR_aoa, DR_PR, DR_time =get_kv(test_list_tas, test_list_alt,theta_list, angle_of_attack_list,test_list_pitchrate, t, index)
+    lst=get_iv(delta_a, delta_e, delta_r, index, index_end,t)
+    DR_inputs_da,DR_inputs_dr, DR_time=lst[0], lst[2], lst[-1]
+    print(len(DR_time))
+    return DR_tas, DR_alt, DR_theta, DR_aoa, DR_PR, DR_inputs_da, DR_inputs_dr, DR_time
 
 
-def get_SP(test_list_tas, test_list_alt, theta_list, angle_of_attack_list, t, start_hour, start_min, start_sec, end_hour, end_min, end_sec): #Short Period motion
+def get_SP(test_list_tas, test_list_alt, theta_list, angle_of_attack_list,test_list_pitchrate, t, start_hour, start_min, start_sec, end_hour, end_min, end_sec, delta_a, delta_e, delta_r): #Short Period motion
     index=get_value(start_hour,start_min,start_sec) #1,0,35
+
     index_end=get_value(end_hour,end_min,end_sec) #1,1,28
-    SP_tas, SP_alt, SP_theta, SP_aoa,SP_PR, SP_time =get_kv(test_list_tas, test_list_alt,theta_list, angle_of_attack_list,t,index)
-    SP_inputs_da, SP_inputs_de, SP_inputs_dr=get_iv(delta_a, delta_e, delta_r, index, index_end)
-    return SP_tas, SP_alt, SP_theta, SP_aoa, SP_PR, SP_time, SP_inputs_da, SP_inputs_de, SP_inputs_dr
 
+    SP_tas, SP_alt, SP_theta, SP_aoa,SP_PR, SP_time =get_kv(test_list_tas, test_list_alt,theta_list, angle_of_attack_list,test_list_pitchrate,t,index)
+    SP_inputs_de,SP_time=get_iv(delta_a, delta_e, delta_r, index, index_end,t)[1], get_iv(delta_a, delta_e, delta_r, index, index_end,t)[-1]
+    return SP_tas, SP_alt, SP_theta, SP_aoa, SP_PR, SP_inputs_de, SP_time
 
-def get_mass(hours,minu,sec):
+#asymetric #only for DR
+
+def get_DRasym(side_slip_list,roll_angle_list,roll_rate_list,yaw_rate_list, t, start_hour, start_min, start_sec, end_hour, end_min, end_sec): #Dutch Roll motion
+    index=get_value(start_hour,start_min,start_sec) #1,1,57
+    DR_sideslip, DR_roll_angle, DR_roll_rate, DR_yaw_rate, DR_time =get_kv2(side_slip_list,roll_angle_list,roll_rate_list,yaw_rate_list, t, index)
+    return DR_sideslip, DR_roll_angle, DR_roll_rate, DR_yaw_rate
+
+def get_mass(hours,minu,sec,t,alt,tas):
+    reference_data=get_rf('Reference_data.mat')
+    lh=reference_data["flightdata"]["lh_engine_FU"]["data"]
+    rh=reference_data["flightdata"]["rh_engine_FU"]["data"]
     
     TOW = 6689
     rho0   = 1.2250          # air density at sea level [kg/m^3] 
@@ -126,13 +159,13 @@ def get_mass(hours,minu,sec):
     Temp0  = 288.15          # temperature at sea level in ISA [K]
     R      = 287.05          # specific gas constant [m^2/sec^2K]
     g      = 9.81
-    for j in range(len(reference_data["flightdata"]["Gps_utcSec"]["data"])):
+    for j in range(len(t)):
         if j==get_value(hours,minu,sec):
-            altitude = reference_data["flightdata"]["Dadc1_alt"]["data"][j]
+            altitude = alt[j]
             hp0  = altitude *0.3048
             rho    = rho0 * pow( ((1+(lambd * hp0 / Temp0))), (-((g / (lambd*R)) + 1)))
-            Vel =  reference_data["flightdata"]["Dadc1_tas"]["data"][j] *0.51444
-            Fuel_out_weight = (reference_data["flightdata"]["lh_engine_FU"]["data"][j] +  reference_data["flightdata"]["rh_engine_FU"]["data"][j])*0.453592
+            Vel =  tas[j] *0.51444
+            Fuel_out_weight = (lh[j] +  rh[j])*0.453592
             Aircraft_weight = TOW - Fuel_out_weight
     return Aircraft_weight 
 
