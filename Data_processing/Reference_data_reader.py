@@ -1,10 +1,14 @@
 import scipy.io as spio
 import matplotlib.pyplot as plt
 from Cit_par import *
+import pandas as pd
 import numpy as np
 
 #reading the reference data
 'Reference_data.mat'
+
+#data file name stationary data
+"20200310_V2.xlsx"
 
 #Functions for reading and converting the data from .mat to dictionaries.
 def loadmat(filename):
@@ -42,12 +46,28 @@ def _todict(matobj):
     return dict
 
 #AC data
-
 def get_data(dataset, measurement, detail = "data"):
     reference_data = loadmat(dataset)
     data_list = reference_data["flightdata"][measurement][detail]
 
     return data_list
+
+#stationary data from the excell file
+def get_stat_data(filename, start_line, endline):
+    data = pd.read_excel(filename)
+    data_df = pd.DataFrame(data)
+
+    stat_data = []
+
+    for j in range(start_line-2, endline-2):
+        row = []
+        for i in range(3,10):
+            value = data_df.iloc[j][i]
+            row.append(value)
+        stat_data.append(row)
+
+    return stat_data
+
 
 reference_data = loadmat('Reference_data.mat')
 '''
@@ -69,8 +89,6 @@ dictlist = reference_data["flightdata"].keys()
 time_in_secs_utc = reference_data["flightdata"]["Gps_utcSec"]["data"]
 yvalues = reference_data["flightdata"]["Dadc1_alt"]["data"]
 #y2values = reference_data["flightdata"]["Dadc1_alt"]["data"]
-
-
 
 def cl__values(utcSectime):
     collecteddata = False
@@ -102,14 +120,15 @@ def input_for_thrust_values(utcSectime):
             fuelflowR = reference_data["flightdata"]["rh_engine_FMF"]["data"][j] /7936.64
             collecteddata = True
             print(altitude, machnum, tempdiff, fuelflowL, fuelflowR)
+    return
 
 def ref_time_to_utc(min,sec):
     time = min*60+sec +30832
     return time
 
 timestamp = ref_time_to_utc(31,59)
-print(timestamp)
-input_for_thrust_values(timestamp)
+#print(timestamp)
+#input_for_thrust_values(timestamp)
 
 
 #plt.plot(time_in_secs_utc,yvalues)
