@@ -1,6 +1,6 @@
 from math import *
 import numpy as np
-from control.matlab import *
+from control import *
 import matplotlib.pyplot as plt
 import Reference_data_reader_num_model 
 # Citation 550 - Linear simulation
@@ -12,13 +12,13 @@ tas,alt,pitch,AOA,PR,d_a,d_r,d_e,t='Dadc1_tas', 'Dadc1_alt', 'Ahrs1_Pitch', 'van
 side_slip, roll_angle, roll_rate, yaw_rate='Fms1_trueHeading', 'Ahrs1_Roll','Ahrs1_bRollRate', 'Ahrs1_bYawRate'
 
 #Starting times of motions
-Start_hour_Phugoid, Start_min_Phugoid, Start_sec_Phugoid=0,53,57
+Start_hour_Phugoid, Start_min_Phugoid, Start_sec_Phugoid=0,54,54
 Start_hour_DR, Start_min_DR, Start_sec_DR=1,1,57
 Start_hour_SP, Start_min_SP, Start_sec_SP=1,0,35
 
-End_hour_Phugoid, End_min_Phugoid, End_sec_Phugoid=0,58,0
+End_hour_Phugoid, End_min_Phugoid, End_sec_Phugoid=0,57,37
 End_hour_DR, End_min_DR, End_sec_DR=1,2,18
-End_hour_SP, End_min_SP, End_sec_SP=1,1,28
+End_hour_SP, End_min_SP, End_sec_SP=1,0,38
 
 #Getting the lists of variables
 
@@ -27,7 +27,7 @@ side_slip_list,roll_angle_list,roll_rate_list,yaw_rate_list=Reference_data_reade
 
 
 
-a='Phugoid' #Phugoid, DR, SP       tas,alt,pitch,AOA,PR,d_a,d_r,d_e,t
+a='SP' #Phugoid, DR, SP       tas,alt,pitch,AOA,PR,d_a,d_r,d_e,t
 
 if a=='Phugoid':
     start_hour,start_minu,start_sec=Start_hour_Phugoid, Start_min_Phugoid, Start_sec_Phugoid
@@ -49,7 +49,23 @@ elif a=='SP':
     start_hour,start_minu,start_sec=Start_hour_SP, Start_min_SP, Start_sec_SP
     end_hour,end_minu,end_sec=End_hour_SP, End_min_SP, End_sec_SP
     V0,hp0,th0,alpha0,PR,inputs_de,time=Reference_data_reader_num_model.get_SP(test_list_tas, test_list_alt, theta_list, angle_of_attack_list, test_list_pitchrate, t, start_hour, start_minu, start_sec, end_hour, end_minu, end_sec, delta_a, delta_e, delta_r)
- 
+'''
+t_time=[]
+new_inputs=[]
+for i in range(len(inputs_de)):
+    if inputs_de[i]>-0.07:
+        t_time.append(round(time[i],1))
+        new_inputs.append(inputs_de[i])
+
+
+time=t_time
+print(time[0], time[-1])
+print(len(time))
+inputs_de=new_inputs
+'''
+
+plt.plot(time,inputs_de)
+plt.show()
 #hp0: pressure altitude in the stationary flight condition [m]
 #V0: true airspeed in the stationary flight condition [m/sec]
 #alpha0: angle of attack in the stationary flight condition [rad]
@@ -209,30 +225,42 @@ D_a = np.array([[0,0],[0,0],[0,0],[0,0]])
 
 if a=='Phugoid' or a=='SP':
     #Response for symmetric flight
-    x0=np.matrix([[V0],[alpha0], [th0], [PR]]) 
+    x0=np.matrix([[V0*0.514444444],[alpha0*np.pi/180], [th0*np.pi/180], [PR*np.pi/180]]) 
     #t=np.arange(0.0,len(inputs_de)/1000,0.001)
     t0=time[0]
+    print(t0)
     t1=time[-1]
+    print(t1)
     step=0.1
-    t=np.arange(0,len(inputs_de)/1000,0.001)
+    t=np.arange(0,time[-1]-time[0], (time[-1]-time[0])/len(time))
     print(len(t))
-    
-          
+            
     sys=ss(A,B,C,D)
     
     #Defining inputs
-    u1 = inputs_de
-    print(len(u1))
+    new_u1=[]
+    for i in range(len(inputs_de)):
+        new_u1.append(inputs_de[i]*np.pi/180)
+    u1 = new_u1
     #y1=initial(sys,t,x0)  
         
     tdum,y1,xdum=forced_response(sys,t,u1,x0)
-    
-    speed=[]
-    for i in range(len(y1)):
-        speed.append(y1[i][0])
-    plt.plot(t,speed)
+    print(len(xdum[0]))
+    #speed
+    plt.plot(tdum,y1[0])
     plt.show()
-
+    
+    #AOA
+    plt.plot(tdum,y1[1])
+    plt.show()
+    
+    #Pitch
+    plt.plot(tdum,y1[2])
+    plt.show()
+    
+    #Pitch rate
+    plt.plot(tdum,y1[3])
+    plt.show()
     
 
 elif a=='DR':
