@@ -99,7 +99,7 @@ def get_graph_values(lst1_a,lst2_a,lst3_a,lst4_a,lst5_a,lst6_a,lst7_a, lst8_a,st
 
 #symmetric
 def get_lists(tas,alt,pitch,AOA,PR,d_a,d_r,d_e,t):
-    reference_data=get_rf('Reference_data.mat')
+    reference_data=get_rf('Actual_flight_test_data.mat')
     test_list_tas = reference_data["flightdata"][str(tas)]["data"]
     test_list_alt=reference_data["flightdata"][str(alt)]["data"]
     theta_list=reference_data["flightdata"][str(pitch)]["data"]
@@ -116,7 +116,7 @@ def get_lists(tas,alt,pitch,AOA,PR,d_a,d_r,d_e,t):
 
 #asymmetric
 def get_lists_asymmetric(side_slip1,side_slip2,roll_angle, roll_rate, yaw_rate):
-    reference_data=get_rf('Reference_data.mat')
+    reference_data=get_rf('Actual_flight_test_data.mat')
     side_slip_list1 = reference_data["flightdata"][str(side_slip1)]["data"]
     side_slip_list2 = reference_data["flightdata"][str(side_slip2)]["data"]
     roll_angle_list=reference_data["flightdata"][str(roll_angle)]["data"]
@@ -167,7 +167,7 @@ def get_DRasym(side_slip_list,roll_angle_list,roll_rate_list,yaw_rate_list, t, s
     return DR_sideslip, DR_roll_angle, DR_roll_rate, DR_yaw_rate
 
 def get_mass(hours,minu,sec,t,alt,tas):
-    reference_data=get_rf('Reference_data.mat')
+    reference_data=get_rf('Actual_flight_test_data.mat')
     lh=reference_data["flightdata"]["lh_engine_FU"]["data"]
     rh=reference_data["flightdata"]["rh_engine_FU"]["data"]
     
