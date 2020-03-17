@@ -61,8 +61,6 @@ for i in range(len(F_used)):
     print(F_used[i])
     Weight_list.append((W_total - F_used[i] * 0.453592))
 
-print(Weight_list)
-print(TAS)
 #==================Calculating CL==================
 CL_list = []
 for i in range(len(alpha)):
@@ -73,6 +71,9 @@ coef = np.polyfit(alpha,CL_list,1)
 poly1d_fn = np.poly1d(coef)
 
 plt.plot(alpha,CL_list, 'ob', alpha, poly1d_fn(alpha))
+
+print("CL alpha is:")
+print(coef)
 
 plt.ylabel('CL')
 plt.xlabel('alpha')

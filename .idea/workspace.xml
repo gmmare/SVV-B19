@@ -1,10 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="58651ed1-705d-4b09-8580-af68ca145ee4" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Data_processing/Reference_data_reader.py" beforeDir="false" afterPath="$PROJECT_DIR$/Data_processing/Reference_data_reader.py" afterDir="false" />
-    </list>
+    <list default="true" id="58651ed1-705d-4b09-8580-af68ca145ee4" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -28,8 +25,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Data_processing/CL_alpha_plots.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="397">
-              <caret line="79" selection-start-line="79" selection-end-line="79" />
+            <state relative-caret-position="352">
+              <caret line="76" column="5" selection-start-line="76" selection-start-column="5" selection-end-line="76" selection-end-column="5" />
               <folding>
                 <element signature="e#0#47#0" expanded="true" />
               </folding>
@@ -222,12 +219,18 @@
       <option name="project" value="LOCAL" />
       <updated>1584027474799</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="plotting added voor cl-alpha">
+      <created>1584030829562</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1584030829562</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1663" height="956" extended-state="0" />
-    <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.2496955" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
@@ -275,7 +278,8 @@
     <MESSAGE value="added equivalent elevator deflection" />
     <MESSAGE value="added a cl alpha function file,&#10;also added an excell reading function" />
     <MESSAGE value="changed data values to floats" />
-    <option name="LAST_COMMIT_MESSAGE" value="changed data values to floats" />
+    <MESSAGE value="plotting added voor cl-alpha" />
+    <option name="LAST_COMMIT_MESSAGE" value="plotting added voor cl-alpha" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$USER_HOME$/Downloads/matlab.mat" />
@@ -372,8 +376,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Data_processing/CL_alpha_plots.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="397">
-          <caret line="79" selection-start-line="79" selection-end-line="79" />
+        <state relative-caret-position="352">
+          <caret line="76" column="5" selection-start-line="76" selection-start-column="5" selection-end-line="76" selection-end-column="5" />
           <folding>
             <element signature="e#0#47#0" expanded="true" />
           </folding>
