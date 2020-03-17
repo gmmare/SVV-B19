@@ -115,12 +115,18 @@ def get_lists(tas,alt,pitch,AOA,PR,d_a,d_r,d_e,t):
     return test_list_tas, test_list_alt, theta_list, angle_of_attack_list,test_list_pitchrate,  delta_a, delta_r, delta_e, t
 
 #asymmetric
-def get_lists_asymmetric(side_slip, roll_angle, roll_rate, yaw_rate):
+def get_lists_asymmetric(side_slip1,side_slip2,roll_angle, roll_rate, yaw_rate):
     reference_data=get_rf('Reference_data.mat')
-    side_slip_list = reference_data["flightdata"][str(side_slip)]["data"]
+    side_slip_list1 = reference_data["flightdata"][str(side_slip1)]["data"]
+    side_slip_list2 = reference_data["flightdata"][str(side_slip2)]["data"]
     roll_angle_list=reference_data["flightdata"][str(roll_angle)]["data"]
     roll_rate_list=reference_data["flightdata"][str(roll_rate)]["data"]
     yaw_rate_list=reference_data["flightdata"][str(yaw_rate)]["data"]
+    
+    side_slip_list=[]
+    for i in range(len(side_slip_list1)):
+        number=np.arctan(side_slip_list1[i]/side_slip_list2[i])
+        side_slip_list.append(number)
 
     return side_slip_list,roll_angle_list,roll_rate_list,yaw_rate_list
 

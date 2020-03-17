@@ -9,17 +9,17 @@ import Reference_data_reader_num_model
 
 # Stationary flight condition
 tas,alt,pitch,AOA,PR,d_a,d_r,d_e,t='Dadc1_tas', 'Dadc1_alt', 'Ahrs1_Pitch', 'vane_AOA', 'Ahrs1_bPitchRate', 'delta_a', 'delta_r', 'delta_e', 'time' 
-side_slip, roll_angle, roll_rate, yaw_rate='Fms1_trueHeading', 'Ahrs1_Roll','Ahrs1_bRollRate', 'Ahrs1_bYawRate'
+side_slip1, side_slip2, roll_angle, roll_rate, yaw_rate='Ahrs1_bLatAcc','Ahrs1_bLongAcc', 'Ahrs1_Roll','Ahrs1_bRollRate', 'Ahrs1_bYawRate'
 
 #Starting times of motions
-Start_hour_Phugoid, Start_min_Phugoid, Start_sec_Phugoid=0,53,57 #54,54
+Start_hour_Phugoid, Start_min_Phugoid, Start_sec_Phugoid=0,54,20 #0,53,57
 Start_hour_AR, Start_min_AR, Start_sec_AR=0,59,10
 Start_hour_SP, Start_min_SP, Start_sec_SP=1,0,35
 Start_hour_DR, Start_min_DR, Start_sec_DR=1,1,57
 Start_hour_DR_yaw, Start_min_DR_yaw, Start_sec_DR_yaw=1,2,47
 Start_hour_spiral, Start_min_spiral, Start_sec_spiral=1,5,20
 
-End_hour_Phugoid, End_min_Phugoid, End_sec_Phugoid=0,57,37
+End_hour_Phugoid, End_min_Phugoid, End_sec_Phugoid=0,57,30
 End_hour_AR, End_min_AR, End_sec_AR=0,59,22
 End_hour_SP, End_min_SP, End_sec_SP=1,0,38
 End_hour_DR, End_min_DR, End_sec_DR=1,2,15
@@ -30,9 +30,9 @@ End_hour_spiral, End_min_spiral, End_sec_spiral=1,6,50
 #Getting the lists of variables
 
 test_list_tas, test_list_alt, theta_list, angle_of_attack_list,test_list_pitchrate, delta_a, delta_r, delta_e,t=Reference_data_reader_num_model.get_lists(tas,alt,pitch,AOA,PR,d_a,d_r,d_e,t) #gets the list of all avriables irrespective of time
-side_slip_list,roll_angle_list,roll_rate_list,yaw_rate_list=Reference_data_reader_num_model.get_lists_asymmetric(side_slip, roll_angle, roll_rate, yaw_rate)
+side_slip_list,roll_angle_list,roll_rate_list,yaw_rate_list=Reference_data_reader_num_model.get_lists_asymmetric(side_slip1, side_slip2, roll_angle, roll_rate, yaw_rate)
 
-a='AR' #Phugoid, DR, SP, spiral, AR, DR_yaw       tas,alt,pitch,AOA,PR,d_a,d_r,d_e,t
+a='Phugoid' #Phugoid, DR, SP, spiral, AR, DR_yaw       tas,alt,pitch,AOA,PR,d_a,d_r,d_e,t
 
 if a=='Phugoid':
     start_hour,start_minu,start_sec=Start_hour_Phugoid, Start_min_Phugoid, Start_sec_Phugoid
@@ -117,14 +117,13 @@ elif a=='AR':
 
 actual_TAS, actual_pitch, actual_AOA, actual_pitchrate,actual_sideslip, actual_roll, actual_rollrate, actual_yawrate=Reference_data_reader_num_model.get_graph_values(test_list_tas, theta_list, angle_of_attack_list,test_list_pitchrate, side_slip_list,roll_angle_list,roll_rate_list,yaw_rate_list, start_hour,start_minu,start_sec, end_hour,end_minu,end_sec)
 
-
-print(side_slip_list)
+plt.plot(time,actual_AOA)
+plt.show()
 #hp0: pressure altitude in the stationary flight condition [m]
 #V0: true airspeed in the stationary flight condition [m/sec]
 #alpha0: angle of attack in the stationary flight condition [rad]
 #th0: pitch angle in the stationary flight condition [rad]
     
-
 
 # Aircraft mass
 m      =      Reference_data_reader_num_model.get_mass(start_hour,start_minu,start_sec,t,test_list_alt,test_list_tas)   # mass [kg] #mass at 30 min
@@ -150,8 +149,8 @@ b      = 15.911	          # wing span [m]
 bh     = 5.791	          # stabilser span [m]
 A      = b ** 2 / S      # wing aspect ratio [ ]
 Ah     = bh ** 2 / Sh    # stabilser aspect ratio [ ]
-Vh_V   = 100.11566510739169 	          # [ ]
-ih     = -2 * pi / 180   # stabiliser angle of incidence [rad]
+Vh_V   = 1 	          # [ ]
+ih     = -2 * np.pi / 180   # stabiliser angle of incidence [rad]
 
 # Constant values concerning atmosphere and gravity
 
