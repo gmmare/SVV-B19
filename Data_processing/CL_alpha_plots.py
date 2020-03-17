@@ -46,7 +46,6 @@ for i in range(len(alt)):
 
     rho_list.append(rho)
 
-print(type(alpha[0]))
 
 #==================converting velocity==================
 IAS = stat_data[:,1]
@@ -58,7 +57,6 @@ for i in range(len(IAS)):
 Weight_list = []
 F_used = stat_data[:,-2]
 for i in range(len(F_used)):
-    print(F_used[i])
     Weight_list.append((W_total - F_used[i] * 0.453592))
 
 #==================Calculating CL==================
