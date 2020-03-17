@@ -12,60 +12,113 @@ tas,alt,pitch,AOA,PR,d_a,d_r,d_e,t='Dadc1_tas', 'Dadc1_alt', 'Ahrs1_Pitch', 'van
 side_slip, roll_angle, roll_rate, yaw_rate='Fms1_trueHeading', 'Ahrs1_Roll','Ahrs1_bRollRate', 'Ahrs1_bYawRate'
 
 #Starting times of motions
-Start_hour_Phugoid, Start_min_Phugoid, Start_sec_Phugoid=0,54,54
-Start_hour_DR, Start_min_DR, Start_sec_DR=1,1,57
+Start_hour_Phugoid, Start_min_Phugoid, Start_sec_Phugoid=0,53,57 #54,54
+Start_hour_AR, Start_min_AR, Start_sec_AR=0,59,10
 Start_hour_SP, Start_min_SP, Start_sec_SP=1,0,35
+Start_hour_DR, Start_min_DR, Start_sec_DR=1,1,57
+Start_hour_DR_yaw, Start_min_DR_yaw, Start_sec_DR_yaw=1,2,47
+Start_hour_spiral, Start_min_spiral, Start_sec_spiral=1,5,20
 
 End_hour_Phugoid, End_min_Phugoid, End_sec_Phugoid=0,57,37
-End_hour_DR, End_min_DR, End_sec_DR=1,2,18
+End_hour_AR, End_min_AR, End_sec_AR=0,59,22
 End_hour_SP, End_min_SP, End_sec_SP=1,0,38
+End_hour_DR, End_min_DR, End_sec_DR=1,2,15
+End_hour_DR_yaw, End_min_DR_yaw, End_sec_DR_yaw=1,3,5
+End_hour_spiral, End_min_spiral, End_sec_spiral=1,6,50
+
 
 #Getting the lists of variables
 
 test_list_tas, test_list_alt, theta_list, angle_of_attack_list,test_list_pitchrate, delta_a, delta_r, delta_e,t=Reference_data_reader_num_model.get_lists(tas,alt,pitch,AOA,PR,d_a,d_r,d_e,t) #gets the list of all avriables irrespective of time
 side_slip_list,roll_angle_list,roll_rate_list,yaw_rate_list=Reference_data_reader_num_model.get_lists_asymmetric(side_slip, roll_angle, roll_rate, yaw_rate)
 
-
-
-a='SP' #Phugoid, DR, SP       tas,alt,pitch,AOA,PR,d_a,d_r,d_e,t
+a='AR' #Phugoid, DR, SP, spiral, AR, DR_yaw       tas,alt,pitch,AOA,PR,d_a,d_r,d_e,t
 
 if a=='Phugoid':
     start_hour,start_minu,start_sec=Start_hour_Phugoid, Start_min_Phugoid, Start_sec_Phugoid
     end_hour,end_minu,end_sec=End_hour_Phugoid, End_min_Phugoid, End_sec_Phugoid
-    V0,hp0,th0,alpha0,PR,inputs_de, time=Reference_data_reader_num_model.get_Phugoid(test_list_tas, test_list_alt, theta_list, angle_of_attack_list,test_list_pitchrate, t, start_hour, start_minu, start_sec, end_hour, end_minu, end_sec, delta_a, delta_e, delta_r)
+    V1,hp1,th1,alpha1,PR1,inputs_de, time=Reference_data_reader_num_model.get_Phugoid(test_list_tas, test_list_alt, theta_list, angle_of_attack_list,test_list_pitchrate, t, start_hour, start_minu, start_sec, end_hour, end_minu, end_sec, delta_a, delta_e, delta_r)
+    V0=V1*0.5144444444444
+    hp0=hp1*0.3048 
+    th0,alpha0,PR=th1*np.pi/180,alpha1*np.pi/180,PR1*np.pi/180
+    
+elif a=='SP':
+    start_hour,start_minu,start_sec=Start_hour_SP, Start_min_SP, Start_sec_SP
+    end_hour,end_minu,end_sec=End_hour_SP, End_min_SP, End_sec_SP
+    V1,hp1,th1,alpha1,PR,inputs_de,time=Reference_data_reader_num_model.get_SP(test_list_tas, test_list_alt, theta_list, angle_of_attack_list, test_list_pitchrate, t, start_hour, start_minu, start_sec, end_hour, end_minu, end_sec, delta_a, delta_e, delta_r)
+    V0=V1*0.5144444444444
+    hp0=hp1*0.3048 
+    th0,alpha0,PR=th1*np.pi/180,alpha1*np.pi/180,PR1*np.pi/180
+    
 elif a=='DR':
     start_hour,start_minu,start_sec=Start_hour_DR, Start_min_DR, Start_sec_DR
     end_hour,end_minu,end_sec=End_hour_DR, End_min_DR, End_sec_DR
-    V0,hp0,th0,alpha0,PR,inputs_da,inputs_dr,time=Reference_data_reader_num_model.get_DR(test_list_tas, test_list_alt, theta_list, angle_of_attack_list,test_list_pitchrate, t, start_hour, start_minu, start_sec, end_hour, end_minu, end_sec, delta_a, delta_e, delta_r)
-    side_slip0,roll0,rollrate0,yawrate0=Reference_data_reader_num_model.get_DRasym(side_slip_list,roll_angle_list,roll_rate_list,yaw_rate_list, t, start_hour, start_minu, start_sec, end_hour, end_minu, end_sec)
+    V1,hp1,th1,alpha1,PR1,inputs_da,inputs_dr,time=Reference_data_reader_num_model.get_DR(test_list_tas, test_list_alt, theta_list, angle_of_attack_list,test_list_pitchrate, t, start_hour, start_minu, start_sec, end_hour, end_minu, end_sec, delta_a, delta_e, delta_r)
+    side_slip1,roll1,rollrate1,yawrate1=Reference_data_reader_num_model.get_DRasym(side_slip_list,roll_angle_list,roll_rate_list,yaw_rate_list, t, start_hour, start_minu, start_sec, end_hour, end_minu, end_sec)
     
     inputs_asym=[]
     for i in range(len(inputs_dr)):
         inputs_asym.append([inputs_da[i],inputs_dr[i]])
         
     inputs_asym=np.array(inputs_asym)
+    V0=V1*0.5144444444444
+    hp0=hp1*0.3048 
+    th0,alpha0,PR=th1*np.pi/180,alpha1*np.pi/180,PR1*np.pi/180
+    side_slip0,roll0,rollrate0,yawrate0=side_slip1*np.pi/180,roll1*np.pi/180,rollrate1*np.pi/180,yawrate1*np.pi/180
 
-elif a=='SP':
-    start_hour,start_minu,start_sec=Start_hour_SP, Start_min_SP, Start_sec_SP
-    end_hour,end_minu,end_sec=End_hour_SP, End_min_SP, End_sec_SP
-    V0,hp0,th0,alpha0,PR,inputs_de,time=Reference_data_reader_num_model.get_SP(test_list_tas, test_list_alt, theta_list, angle_of_attack_list, test_list_pitchrate, t, start_hour, start_minu, start_sec, end_hour, end_minu, end_sec, delta_a, delta_e, delta_r)
-'''
-t_time=[]
-new_inputs=[]
-for i in range(len(inputs_de)):
-    if inputs_de[i]>-0.07:
-        t_time.append(round(time[i],1))
-        new_inputs.append(inputs_de[i])
+elif a=='DR_yaw':
+    start_hour,start_minu,start_sec=Start_hour_DR_yaw, Start_min_DR_yaw, Start_sec_DR_yaw
+    end_hour,end_minu,end_sec=End_hour_DR_yaw, End_min_DR_yaw, End_sec_DR_yaw
+    V1,hp1,th1,alpha1,PR1,inputs_da,inputs_dr,time=Reference_data_reader_num_model.get_DR(test_list_tas, test_list_alt, theta_list, angle_of_attack_list,test_list_pitchrate, t, start_hour, start_minu, start_sec, end_hour, end_minu, end_sec, delta_a, delta_e, delta_r)
+    side_slip1,roll1,rollrate1,yawrate1=Reference_data_reader_num_model.get_DRasym(side_slip_list,roll_angle_list,roll_rate_list,yaw_rate_list, t, start_hour, start_minu, start_sec, end_hour, end_minu, end_sec)
+    
+    inputs_asym=[]
+    for i in range(len(inputs_dr)):
+        inputs_asym.append([inputs_da[i],inputs_dr[i]])
+        
+    inputs_asym=np.array(inputs_asym)
+    V0=V1*0.5144444444444
+    hp0=hp1*0.3048 
+    th0,alpha0,PR=th1*np.pi/180,alpha1*np.pi/180,PR1*np.pi/180
+    side_slip0,roll0,rollrate0,yawrate0=side_slip1*np.pi/180,roll1*np.pi/180,rollrate1*np.pi/180,yawrate1*np.pi/180
+    
+elif a=='spiral':
+    start_hour,start_minu,start_sec=Start_hour_spiral, Start_min_spiral, Start_sec_spiral
+    end_hour,end_minu,end_sec=End_hour_spiral, End_min_spiral, End_sec_spiral
+    V1,hp1,th1,alpha1,PR1,inputs_da,inputs_dr,time=Reference_data_reader_num_model.get_DR(test_list_tas, test_list_alt, theta_list, angle_of_attack_list,test_list_pitchrate, t, start_hour, start_minu, start_sec, end_hour, end_minu, end_sec, delta_a, delta_e, delta_r)
+    side_slip1,roll1,rollrate1,yawrate1=Reference_data_reader_num_model.get_DRasym(side_slip_list,roll_angle_list,roll_rate_list,yaw_rate_list, t, start_hour, start_minu, start_sec, end_hour, end_minu, end_sec)
+    
+    inputs_asym=[]
+    for i in range(len(inputs_dr)):
+        inputs_asym.append([inputs_da[i],inputs_dr[i]])
+        
+    inputs_asym=np.array(inputs_asym)
+    V0=V1*0.5144444444444
+    hp0=hp1*0.3048 
+    th0,alpha0,PR=th1*np.pi/180,alpha1*np.pi/180,PR1*np.pi/180
+    side_slip0,roll0,rollrate0,yawrate0=side_slip1*np.pi/180,roll1*np.pi/180,rollrate1*np.pi/180,yawrate1*np.pi/180
+    
+elif a=='AR':
+    start_hour,start_minu,start_sec=Start_hour_AR, Start_min_AR, Start_sec_AR
+    end_hour,end_minu,end_sec=End_hour_AR, End_min_AR, End_sec_AR
+    V1,hp1,th1,alpha1,PR1,inputs_da,inputs_dr,time=Reference_data_reader_num_model.get_DR(test_list_tas, test_list_alt, theta_list, angle_of_attack_list,test_list_pitchrate, t, start_hour, start_minu, start_sec, end_hour, end_minu, end_sec, delta_a, delta_e, delta_r)
+    side_slip1,roll1,rollrate1,yawrate1=Reference_data_reader_num_model.get_DRasym(side_slip_list,roll_angle_list,roll_rate_list,yaw_rate_list, t, start_hour, start_minu, start_sec, end_hour, end_minu, end_sec)
+    
+    inputs_asym=[]
+    for i in range(len(inputs_dr)):
+        inputs_asym.append([inputs_da[i],inputs_dr[i]])
+        
+    inputs_asym=np.array(inputs_asym)
+    V0=V1*0.5144444444444
+    hp0=hp1*0.3048 
+    th0,alpha0,PR=th1*np.pi/180,alpha1*np.pi/180,PR1*np.pi/180
+    side_slip0,roll0,rollrate0,yawrate0=side_slip1*np.pi/180,roll1*np.pi/180,rollrate1*np.pi/180,yawrate1*np.pi/180
+    
+
+actual_TAS, actual_pitch, actual_AOA, actual_pitchrate,actual_sideslip, actual_roll, actual_rollrate, actual_yawrate=Reference_data_reader_num_model.get_graph_values(test_list_tas, theta_list, angle_of_attack_list,test_list_pitchrate, side_slip_list,roll_angle_list,roll_rate_list,yaw_rate_list, start_hour,start_minu,start_sec, end_hour,end_minu,end_sec)
 
 
-time=t_time
-print(time[0], time[-1])
-print(len(time))
-inputs_de=new_inputs
-'''
-
-plt.plot(time,inputs_de)
-plt.show()
+print(side_slip_list)
 #hp0: pressure altitude in the stationary flight condition [m]
 #V0: true airspeed in the stationary flight condition [m/sec]
 #alpha0: angle of attack in the stationary flight condition [rad]
@@ -177,13 +230,15 @@ Cndr   =  -0.0939
 #Symmetric
 
 C1 = np.array([[-2*muc*c/V0**2, 0, 0, 0],
-      [0, (CZa-2*muc)*c/V0, 0, 0],
+      [0, (CZadot-2*muc)*c/V0, 0, 0],
       [0, 0, -c/V0, 0],
       [0, Cmadot*c/V0, 0, -2*muc*KY2*(c/V0)**2]])
+    
 C2 = np.array([[CXu/V0, CXa, CZ0, CXq*c/V0],
       [CZu/V0, CZa, -CX0, c/V0*(CZq+2*muc)],
       [0, 0, 0, c/V0],
       [Cmu/V0, Cma, 0, Cmq*c/V0]])
+    
 C3 = np.array([[CXde], [CZde], [0], [Cmde]])
 C_extra=C2+C1
 
@@ -195,16 +250,18 @@ C = np.array([[1, 0, 0, 0],
               [0, 0, 0, 1]])
 D = np.array([[0],[0],[0],[0]])
 
-print(np.linalg.eigvals(A))
+#print(np.linalg.eigvals(A))
 #A-Symmetric (_a)
 C1_a = np.array([[(CYbdot-2*mub)*b/V0, 0, 0, 0],
                [0, -0.5*b/V0, 0, 0],
                [0, 0, -2*mub*KX2*(b/V0)**2, 2*mub*KXZ*(b/V0)**2],
                [Cnbdot*b/V0, 0, 2*mub*KXZ*(b/V0)**2, -2*mub*KZ2*(b/V0)**2]])
+    
 C2_a = np.array([[CYb, CL, CYp*b/(2*V0), (CYr-4*mub)*b/(2*V0)],
-               [0, 0, (1-b/(2*V0)), 0],
+               [0, 0, (b/(2*V0)), 0],
                [Clb, 0, Clp*b/(2*V0), Clr*b/(2*V0)],
                [Cnb, 0, Cnp*b/(2*V0), Cnr*b/(2*V0)]])
+    
 C3_a = np.array([[CYda, CYdr],
                [0, 0],
                [Clda, Cldr],
@@ -225,7 +282,7 @@ D_a = np.array([[0,0],[0,0],[0,0],[0,0]])
 
 if a=='Phugoid' or a=='SP':
     #Response for symmetric flight
-    x0=np.matrix([[V0*0.514444444],[alpha0*np.pi/180], [th0*np.pi/180], [PR*np.pi/180]]) 
+    x0=np.matrix([[V0],[alpha0], [th0], [PR]]) 
     #t=np.arange(0.0,len(inputs_de)/1000,0.001)
     t0=time[0]
     print(t0)
@@ -233,8 +290,7 @@ if a=='Phugoid' or a=='SP':
     print(t1)
     step=0.1
     t=np.arange(0,time[-1]-time[0], (time[-1]-time[0])/len(time))
-    print(len(t))
-            
+    
     sys=ss(A,B,C,D)
     
     #Defining inputs
@@ -242,45 +298,70 @@ if a=='Phugoid' or a=='SP':
     for i in range(len(inputs_de)):
         new_u1.append(inputs_de[i]*np.pi/180)
     u1 = new_u1
+    print(len(time),len(u1))
     #y1=initial(sys,t,x0)  
         
     tdum,y1,xdum=forced_response(sys,t,u1,x0)
     print(len(xdum[0]))
     #speed
     plt.plot(tdum,y1[0])
+    plt.plot(tdum, actual_TAS)
     plt.show()
     
     #AOA
     plt.plot(tdum,y1[1])
+    plt.plot(tdum, actual_AOA)
     plt.show()
     
     #Pitch
     plt.plot(tdum,y1[2])
+    plt.plot(tdum,actual_pitch)
     plt.show()
     
     #Pitch rate
     plt.plot(tdum,y1[3])
+    plt.plot(tdum,actual_pitchrate)
     plt.show()
     
 
-elif a=='DR':
+elif a=='DR' or a=='spiral' or a=='DR_yaw' or a=='AR':
     #Response for symmetric flight
     x0=np.matrix([[side_slip0],[roll0],[rollrate0],[yawrate0]]) 
     t0=time[0]
     t1=time[-1]
     step=0.1
-    t=np.arange(t0,t1+step,step)
+    t=np.arange(0,time[-1]-time[0], (time[-1]-time[0])/len(time))
 
     sys=ss(A_a,B_a,C_a,D_a)
-
-    print(1)
-    #Defining inputs
-    u1 = inputs_asym
-    y1=initial(sys,t,x0)
     
+    #Defining inputs
+    new_u1=[]
+    for i in range(len(inputs_da)):
+        new_u1.append([inputs_da[i]*np.pi/180, inputs_dr[i]*np.pi/180])
+    u1 = np.array(new_u1)
+    u1= np.array(u1).reshape(2, -1)
+
+    #y1=initial(sys,t,x0)  
         
-    y1,tdum,xdum=lsim(sys,U=u1,T=t)
-    plt.plot(t,y1[0])
+    tdum,y1,xdum=forced_response(sys,t,u1,x0)
+    #sideslip
+    plt.plot(tdum,y1[0])
+    plt.plot(tdum, actual_sideslip)
+    plt.show()
+    
+    #roll
+    plt.plot(tdum,y1[1])
+    plt.plot(tdum, actual_roll)
+    plt.show()
+    
+    #roll rate
+    plt.plot(tdum,y1[2])
+    plt.plot(tdum, actual_rollrate)
+    plt.show()
+    
+    #yaw rate
+    plt.plot(tdum,y1[3])
+    plt.plot(tdum, actual_yawrate)
     plt.show()
 
 

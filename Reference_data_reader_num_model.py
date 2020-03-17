@@ -82,6 +82,21 @@ def get_iv(lst1,lst2,lst3,index,index_end,t):
     print(len(time)) 
     return inputs_da,inputs_de,inputs_dr,time
 
+def get_graph_values(lst1_a,lst2_a,lst3_a,lst4_a,lst5_a,lst6_a,lst7_a, lst8_a,start_hour,start_min,start_sec, end_hour,end_min,end_sec):
+    index_start=get_value(start_hour,start_min,start_sec)
+    index_end=get_value(end_hour,end_min,end_sec)
+    lst1,lst2,lst3,lst4,lst5,lst6,lst7,lst8=[],[],[],[],[],[],[],[]
+    for i in range(index_start,index_end+1):
+        lst1.append(lst1_a[i]*0.5144444444444444)
+        lst2.append(lst2_a[i]*np.pi/180)
+        lst3.append(lst3_a[i]*np.pi/180)
+        lst4.append(lst4_a[i]*np.pi/180)
+        lst5.append(lst5_a[i]*np.pi/180)
+        lst6.append(lst6_a[i]*np.pi/180)
+        lst7.append(lst7_a[i]*np.pi/180)
+        lst8.append(lst8_a[i]*np.pi/180)
+    return lst1,lst2,lst3,lst4,lst5,lst6,lst7,lst8
+
 #symmetric
 def get_lists(tas,alt,pitch,AOA,PR,d_a,d_r,d_e,t):
     reference_data=get_rf('Reference_data.mat')
@@ -110,8 +125,6 @@ def get_lists_asymmetric(side_slip, roll_angle, roll_rate, yaw_rate):
     return side_slip_list,roll_angle_list,roll_rate_list,yaw_rate_list
 
 
-
-
 #symmetric
 def get_Phugoid(test_list_tas, test_list_alt, theta_list, angle_of_attack_list,pitchrate_list, t, start_hour, start_min, start_sec, end_hour, end_min, end_sec, delta_a, delta_e, delta_r): #Phugoid motion
     index=get_value(start_hour,start_min,start_sec) #0,53,57
@@ -130,7 +143,6 @@ def get_DR(test_list_tas, test_list_alt, theta_list, angle_of_attack_list,test_l
     DR_inputs_da,DR_inputs_dr, DR_time=lst[0], lst[2], lst[-1]
     print(len(DR_time))
     return DR_tas, DR_alt, DR_theta, DR_aoa, DR_PR, DR_inputs_da, DR_inputs_dr, DR_time
-
 
 def get_SP(test_list_tas, test_list_alt, theta_list, angle_of_attack_list,test_list_pitchrate, t, start_hour, start_min, start_sec, end_hour, end_min, end_sec, delta_a, delta_e, delta_r): #Short Period motion
     index=get_value(start_hour,start_min,start_sec) #1,0,35
