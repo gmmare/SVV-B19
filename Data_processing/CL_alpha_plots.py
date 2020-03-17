@@ -4,7 +4,7 @@ from math import *
 import matplotlib.pyplot as plt
 
 #importing data
-stat_data = get_stat_data("20200310_V2.xlsx", 28, 34)
+stat_data = get_stat_data("20200311_V1.xlsx", 28, 35)
 
 #getting alpha values
 alpha = stat_data[:,2]
