@@ -37,17 +37,20 @@ Start_hour_spiral, Start_min_spiral, Start_sec_spiral=1,2,59
 
 End_hour_Phugoid, End_min_Phugoid, End_sec_Phugoid=0,53,33
 End_hour_AR, End_min_AR, End_sec_AR=0,58,13
-End_hour_SP, End_min_SP, End_sec_SP=0,56,23
+End_hour_SP, End_min_SP, End_sec_SP=0,55,40
 End_hour_DR, End_min_DR, End_sec_DR=0,59,0
 End_hour_DR_yaw, End_min_DR_yaw, End_sec_DR_yaw=0,59,22
 End_hour_spiral, End_min_spiral, End_sec_spiral=1,4,25
+
+
+
 
 #Getting the lists of variables
 
 test_list_tas, test_list_alt, theta_list, angle_of_attack_list,test_list_pitchrate, delta_a, delta_r, delta_e,t=Reference_data_reader_num_model.get_lists(tas,alt,pitch,AOA,PR,d_a,d_r,d_e,t) #gets the list of all avriables irrespective of time
 side_slip_list,roll_angle_list,roll_rate_list,yaw_rate_list=Reference_data_reader_num_model.get_lists_asymmetric(side_slip1, side_slip2, roll_angle, roll_rate, yaw_rate)
 
-a='Phugoid' #Phugoid, DR, SP, spiral, AR, DR_yaw       tas,alt,pitch,AOA,PR,d_a,d_r,d_e,t
+a='DR' #Phugoid, DR, SP, spiral, AR, DR_yaw       tas,alt,pitch,AOA,PR,d_a,d_r,d_e,t
 
 if a=='Phugoid':
     start_hour,start_minu,start_sec=Start_hour_Phugoid, Start_min_Phugoid, Start_sec_Phugoid
@@ -131,6 +134,8 @@ elif a=='AR':
     
 
 actual_TAS, actual_pitch, actual_AOA, actual_pitchrate,actual_sideslip, actual_roll, actual_rollrate, actual_yawrate=Reference_data_reader_num_model.get_graph_values(test_list_tas, theta_list, angle_of_attack_list,test_list_pitchrate, side_slip_list,roll_angle_list,roll_rate_list,yaw_rate_list, start_hour,start_minu,start_sec, end_hour,end_minu,end_sec)
+side_slip0=Reference_data_reader_num_model.test(start_hour,start_minu,start_sec, end_hour,end_minu,end_sec,V0)
+
 #plt.plot(time, inputs_da)
 #plt.plot(time,inputs_dr)
 #plt.show()
@@ -143,7 +148,7 @@ actual_TAS, actual_pitch, actual_AOA, actual_pitchrate,actual_sideslip, actual_r
 
 # Aircraft mass
 m      =      Reference_data_reader_num_model.get_mass(start_hour,start_minu,start_sec,t,test_list_alt,test_list_tas)   # mass [kg] #mass at 30 min
-
+print(m)
 # aerodynamic properties
 e      =   0.8          # Oswald factor [ ]
 CD0    =   0.04         # Zero lift drag coefficient [ ]

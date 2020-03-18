@@ -2,6 +2,7 @@ import scipy.io as spio
 
 import numpy as np
 import matplotlib.pyplot as plt
+from math import *
 
 
 #reading the reference data
@@ -182,7 +183,7 @@ def get_mass(hours,minu,sec,t,alt,tas):
             altitude = alt[j]
             hp0  = altitude *0.3048
             rho    = rho0 * pow( ((1+(lambd * hp0 / Temp0))), (-((g / (lambd*R)) + 1)))
-            Vel =  tas[j] *0.51444
+            Vel =  tas[j] * 0.5144444444
             Fuel_out_weight = (lh[j] +  rh[j])*0.453592
             Aircraft_weight = TOW - Fuel_out_weight
     return Aircraft_weight 
@@ -190,6 +191,33 @@ def get_mass(hours,minu,sec,t,alt,tas):
 
 
 
+def test(start_hours,start_min, start_sec, end_hours, end_min, end_sec,V0): 
+    data=get_rf('Actual_flight_test_data.mat')
+    la=data["flightdata"]["Ahrs1_bLongAcc"]["data"]
+    lt=data["flightdata"]["Ahrs1_aHdgAcc"]["data"]
+    time=data["flightdata"]["time"]["data"]
+    tas=data["flightdata"]["Dadc1_tas"]["data"]
+    
+    index=get_value(start_hours,start_min, start_sec)
+    index_end= get_value(end_hours, end_min, end_sec)
+    
+    tas,la,lt,time= get_iv(tas,la,time,index,index_end,time)
+
+    
+    new_list=[]
+    step=0.1
+    
+    for i in range(len(la)):
+        
+        u=0.1*la[i]*9.81
+        V=tas[i]*0.514444444
+        u=la[i]/lt[i]*V
+        sideslip =np.arctan(u/V)
+        new_list.append(sideslip)
+        
+
+    
+    return new_list[0]
 
 
 
