@@ -7,6 +7,7 @@ from math import *
 
 #reading the reference data
 'Reference_data.mat'
+'Actual_flight_test_data.mat'
 
 #Functions for reading and converting the data from .mat to dictionaries.
 def loadmat(filename):
@@ -83,7 +84,7 @@ def get_iv(lst1,lst2,lst3,index,index_end,t):
     print(len(time)) 
     return inputs_da,inputs_de,inputs_dr,time
 
-def get_graph_values(lst1_a,lst2_a,lst3_a,lst4_a,lst5_a,lst6_a,lst7_a, lst8_a,start_hour,start_min,start_sec, end_hour,end_min,end_sec):
+def get_graph_values(lst1_a,lst2_a,lst3_a,lst4_a,lst5_a,lst6_a,lst7_a, lst8_a,start_hour,start_min,start_sec, end_hour,end_min,end_sec,V0):
     index_start=get_value(start_hour,start_min,start_sec)
     index_end=get_value(end_hour,end_min,end_sec)
     lst1,lst2,lst3,lst4,lst5,lst6,lst7,lst8=[],[],[],[],[],[],[],[]
@@ -96,11 +97,13 @@ def get_graph_values(lst1_a,lst2_a,lst3_a,lst4_a,lst5_a,lst6_a,lst7_a, lst8_a,st
         lst6.append(lst6_a[i]*np.pi/180)
         lst7.append(lst7_a[i]*np.pi/180)
         lst8.append(lst8_a[i]*np.pi/180)
+    for i in range(len(lst1)):
+        lst1[i]=lst1[i]-V0
     return lst1,lst2,lst3,lst4,lst5,lst6,lst7,lst8
 
 #symmetric
 def get_lists(tas,alt,pitch,AOA,PR,d_a,d_r,d_e,t):
-    reference_data=get_rf('Actual_flight_test_data.mat')
+    reference_data=get_rf('Reference_data.mat')
     test_list_tas = reference_data["flightdata"][str(tas)]["data"]
     test_list_alt=reference_data["flightdata"][str(alt)]["data"]
     theta_list=reference_data["flightdata"][str(pitch)]["data"]
@@ -117,7 +120,7 @@ def get_lists(tas,alt,pitch,AOA,PR,d_a,d_r,d_e,t):
 
 #asymmetric
 def get_lists_asymmetric(side_slip1,side_slip2,roll_angle, roll_rate, yaw_rate):
-    reference_data=get_rf('Actual_flight_test_data.mat')
+    reference_data=get_rf('Reference_data.mat')
     side_slip_list1 = reference_data["flightdata"][str(side_slip1)]["data"]
     side_slip_list2 = reference_data["flightdata"][str(side_slip2)]["data"]
     roll_angle_list=reference_data["flightdata"][str(roll_angle)]["data"]
@@ -168,7 +171,7 @@ def get_DRasym(side_slip_list,roll_angle_list,roll_rate_list,yaw_rate_list, t, s
     return DR_sideslip, DR_roll_angle, DR_roll_rate, DR_yaw_rate
 
 def get_mass(hours,minu,sec,t,alt,tas):
-    reference_data=get_rf('Actual_flight_test_data.mat')
+    reference_data=get_rf('Reference_data.mat')
     lh=reference_data["flightdata"]["lh_engine_FU"]["data"]
     rh=reference_data["flightdata"]["rh_engine_FU"]["data"]
     
@@ -192,7 +195,7 @@ def get_mass(hours,minu,sec,t,alt,tas):
 
 
 def test(start_hours,start_min, start_sec, end_hours, end_min, end_sec,V0): 
-    data=get_rf('Actual_flight_test_data.mat')
+    data=get_rf('Reference_data.mat')
     la=data["flightdata"]["Ahrs1_bLongAcc"]["data"]
     lt=data["flightdata"]["Ahrs1_aHdgAcc"]["data"]
     time=data["flightdata"]["time"]["data"]
@@ -206,6 +209,7 @@ def test(start_hours,start_min, start_sec, end_hours, end_min, end_sec,V0):
     
     new_list=[]
     step=0.1
+    list_ratios=[]
     
     for i in range(len(la)):
         
@@ -214,10 +218,11 @@ def test(start_hours,start_min, start_sec, end_hours, end_min, end_sec,V0):
         u=la[i]/lt[i]*V
         sideslip =np.arctan(u/V)
         new_list.append(sideslip)
+        list_ratios.append(la[i]/lt[i])
         
 
     
-    return new_list[0]
+    return new_list[0], list_ratios
 
 
 

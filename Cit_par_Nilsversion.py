@@ -10,38 +10,39 @@ import Reference_data_reader_num_model
 # Stationary flight condition
 tas,alt,pitch,AOA,PR,d_a,d_r,d_e,t='Dadc1_tas', 'Dadc1_alt', 'Ahrs1_Pitch', 'vane_AOA', 'Ahrs1_bPitchRate', 'delta_a', 'delta_r', 'delta_e', 'time' 
 side_slip1, side_slip2, roll_angle, roll_rate, yaw_rate='Ahrs1_bLatAcc','Ahrs1_bLongAcc', 'Ahrs1_Roll','Ahrs1_bRollRate', 'Ahrs1_bYawRate'
-''' #for reference data
+
+ #for reference data
 #Starting times of motions
-Start_hour_Phugoid, Start_min_Phugoid, Start_sec_Phugoid=0,54,20 #0,53,57
+Start_hour_Phugoid, Start_min_Phugoid, Start_sec_Phugoid=0,53,57 #0,53,57
 Start_hour_AR, Start_min_AR, Start_sec_AR=0,59,10
-Start_hour_SP, Start_min_SP, Start_sec_SP=1,0,35
+Start_hour_SP, Start_min_SP, Start_sec_SP=1,0,34
 Start_hour_DR, Start_min_DR, Start_sec_DR=1,1,57
 Start_hour_DR_yaw, Start_min_DR_yaw, Start_sec_DR_yaw=1,2,47
 Start_hour_spiral, Start_min_spiral, Start_sec_spiral=1,5,20
 
-End_hour_Phugoid, End_min_Phugoid, End_sec_Phugoid=0,57,30
+End_hour_Phugoid, End_min_Phugoid, End_sec_Phugoid=0,55,30
 End_hour_AR, End_min_AR, End_sec_AR=0,59,22
 End_hour_SP, End_min_SP, End_sec_SP=1,0,38
-End_hour_DR, End_min_DR, End_sec_DR=1,2,10
-End_hour_DR_yaw, End_min_DR_yaw, End_sec_DR_yaw=1,2,55
+End_hour_DR, End_min_DR, End_sec_DR=1,2,30
+End_hour_DR_yaw, End_min_DR_yaw, End_sec_DR_yaw=1,3,40
 End_hour_spiral, End_min_spiral, End_sec_spiral=1,6,50
 '''
 #ACTUAL flight test
 #Starting times of motion
-Start_hour_Phugoid, Start_min_Phugoid, Start_sec_Phugoid=0,52,10 
+Start_hour_Phugoid, Start_min_Phugoid, Start_sec_Phugoid=0,52,30
 Start_hour_AR, Start_min_AR, Start_sec_AR=0,57,42
-Start_hour_SP, Start_min_SP, Start_sec_SP=0,55,34
+Start_hour_SP, Start_min_SP, Start_sec_SP=0,54,50
 Start_hour_DR, Start_min_DR, Start_sec_DR=0,58,39
 Start_hour_DR_yaw, Start_min_DR_yaw, Start_sec_DR_yaw=0,59,11
 Start_hour_spiral, Start_min_spiral, Start_sec_spiral=1,2,59
 
-End_hour_Phugoid, End_min_Phugoid, End_sec_Phugoid=0,53,33
+End_hour_Phugoid, End_min_Phugoid, End_sec_Phugoid=0,54,00
 End_hour_AR, End_min_AR, End_sec_AR=0,58,13
 End_hour_SP, End_min_SP, End_sec_SP=0,55,40
 End_hour_DR, End_min_DR, End_sec_DR=0,59,0
 End_hour_DR_yaw, End_min_DR_yaw, End_sec_DR_yaw=0,59,22
 End_hour_spiral, End_min_spiral, End_sec_spiral=1,4,25
-
+'''
 
 
 
@@ -50,7 +51,7 @@ End_hour_spiral, End_min_spiral, End_sec_spiral=1,4,25
 test_list_tas, test_list_alt, theta_list, angle_of_attack_list,test_list_pitchrate, delta_a, delta_r, delta_e,t=Reference_data_reader_num_model.get_lists(tas,alt,pitch,AOA,PR,d_a,d_r,d_e,t) #gets the list of all avriables irrespective of time
 side_slip_list,roll_angle_list,roll_rate_list,yaw_rate_list=Reference_data_reader_num_model.get_lists_asymmetric(side_slip1, side_slip2, roll_angle, roll_rate, yaw_rate)
 
-a='DR' #Phugoid, DR, SP, spiral, AR, DR_yaw       tas,alt,pitch,AOA,PR,d_a,d_r,d_e,t
+a='DR_yaw' #Phugoid, DR, SP, spiral, AR, DR_yaw       tas,alt,pitch,AOA,PR,d_a,d_r,d_e,t
 
 if a=='Phugoid':
     start_hour,start_minu,start_sec=Start_hour_Phugoid, Start_min_Phugoid, Start_sec_Phugoid
@@ -132,9 +133,9 @@ elif a=='AR':
     th0,alpha0,PR=th1*np.pi/180,alpha1*np.pi/180,PR1*np.pi/180
     side_slip0,roll0,rollrate0,yawrate0=side_slip1*np.pi/180,roll1*np.pi/180,rollrate1*np.pi/180,yawrate1*np.pi/180
     
+side_slip0, ratios_u=Reference_data_reader_num_model.test(start_hour,start_minu,start_sec, end_hour,end_minu,end_sec,V0)
+actual_TAS, actual_pitch, actual_AOA, actual_pitchrate,actual_sideslip, actual_roll, actual_rollrate, actual_yawrate=Reference_data_reader_num_model.get_graph_values(test_list_tas, theta_list, angle_of_attack_list,test_list_pitchrate, side_slip_list,roll_angle_list,roll_rate_list,yaw_rate_list, start_hour,start_minu,start_sec, end_hour,end_minu,end_sec, V0)
 
-actual_TAS, actual_pitch, actual_AOA, actual_pitchrate,actual_sideslip, actual_roll, actual_rollrate, actual_yawrate=Reference_data_reader_num_model.get_graph_values(test_list_tas, theta_list, angle_of_attack_list,test_list_pitchrate, side_slip_list,roll_angle_list,roll_rate_list,yaw_rate_list, start_hour,start_minu,start_sec, end_hour,end_minu,end_sec)
-side_slip0=Reference_data_reader_num_model.test(start_hour,start_minu,start_sec, end_hour,end_minu,end_sec,V0)
 
 #plt.plot(time, inputs_da)
 #plt.plot(time,inputs_dr)
@@ -156,7 +157,7 @@ CLa    =   5.084          # Slope of CL-alpha curve [ ]
 
 # Longitudinal stability
 Cma    = -0.5626            # longitudinal stabilty [ ]
-Cmde   =  -1.1642          # elevator effectiveness [ ]
+Cmde   = -1.1642          # elevator effectiveness [ ]
 
 # Aircraft geometry
 
@@ -269,18 +270,19 @@ C = np.array([[1, 0, 0, 0],
               [0, 0, 1, 0],
               [0, 0, 0, 1]])
 D = np.array([[0],[0],[0],[0]])
+#D=-1*(np.linalg.inv(C_extra)).dot(C3)
 
 #print(np.linalg.eigvals(A))
 #A-Symmetric (_a)
 C1_a = np.array([[(CYbdot-2*mub)*b/V0, 0, 0, 0],
                [0, -0.5*b/V0, 0, 0],
                [0, 0, -2*mub*KX2*(b/V0)**2, 2*mub*KXZ*(b/V0)**2],
-               [Cnbdot*b/V0, 0, 2*mub*KXZ*(b/V0)**2, -2*mub*KZ2*(b/V0)**2]])
+               [Cnbdot*b/V0, 0, 2*mub*KXZ*(b/V0)**2, -2*mub*KZ2*(b/V0)**2]]) 
     
-C2_a = np.array([[CYb, CL, CYp*b/(2*V0), (CYr-4*mub)*b/(2*V0)],
+C2_a = np.array([[CYb, CL, CYp*b/(2*V0), (CYr-4*mub)*b/(2*V0)], 
                [0, 0, (b/(2*V0)), 0],
-               [Clb, 0, Clp*b/(2*V0), Clr*b/(2*V0)],
-               [Cnb, 0, Cnp*b/(2*V0), Cnr*b/(2*V0)]])
+               [Clb, 0, Clp*b/(2*V0), Clr*b/(2*V0)], 
+               [Cnb, 0, Cnp*b/(2*V0), Cnr*b/(2*V0)]]) 
     
 C3_a = np.array([[CYda, CYdr],
                [0, 0],
@@ -293,7 +295,7 @@ C_extra_a=C2_a+C1_a
 
 A_a = -(np.linalg.inv(C1_a)).dot(C2_a)
 B_a = -(np.linalg.inv(C1_a)).dot(C3_a)
-C_a = np.array([[1, 0, 0, 0],
+C_a = np.array([[0, 0, 0, 0],
               [0, 1, 0, 0],
               [0, 0, 1, 0],
               [0, 0, 0, 1]])
@@ -302,12 +304,11 @@ D_a = np.array([[0,0],[0,0],[0,0],[0,0]])
 
 if a=='Phugoid' or a=='SP':
     #Response for symmetric flight
-    x0=np.matrix([[V0],[alpha0], [th0], [PR]]) 
+    x0=np.matrix([[0],[0], [0], [PR]]) 
+    
     #t=np.arange(0.0,len(inputs_de)/1000,0.001)
     t0=time[0]
-    print(t0)
     t1=time[-1]
-    print(t1)
     step=0.1
     t=np.arange(0,time[-1]-time[0], (time[-1]-time[0])/len(time))
     
@@ -317,30 +318,40 @@ if a=='Phugoid' or a=='SP':
     new_u1=[]
     for i in range(len(inputs_de)):
         new_u1.append(inputs_de[i]*np.pi/180)
+    
     u1 = new_u1
-    print(len(time),len(u1))
+    plt.plot(t,u1)
+    plt.show()
     #y1=initial(sys,t,x0)  
         
     tdum,y1,xdum=forced_response(sys,t,u1,x0)
-    print(len(xdum[0]))
+    
+    for i in range(len(tdum)):
+        actual_AOA[i]=actual_AOA[i]-alpha0
+        actual_TAS[i]=actual_TAS[i]+V0
+        xdum[0][i]=xdum[0][i]+V0
+        actual_pitch[i]=actual_pitch[i]-th0
+
+            
+        
     #speed
-    plt.plot(tdum,y1[0])
+    plt.plot(tdum,xdum[0])
     plt.plot(tdum, actual_TAS)
-    plt.show()
+    plt.show()     
     
     #AOA
-    plt.plot(tdum,y1[1])
+    plt.plot(tdum,xdum[1])
     plt.plot(tdum, actual_AOA)
     plt.show()
     
     #Pitch
-    plt.plot(tdum,y1[2])
+    plt.plot(tdum,xdum[2])
     #plt.ylim(0,0.2)
     plt.plot(tdum,actual_pitch)
     plt.show()
     
     #Pitch rate
-    plt.plot(tdum,y1[3])
+    plt.plot(tdum,xdum[3])
     plt.plot(tdum,actual_pitchrate)
     plt.show()
     
@@ -367,6 +378,9 @@ elif a=='DR' or a=='spiral' or a=='DR_yaw' or a=='AR':
     #y1=initial(sys,t,x0)  
         
     tdum,y1,xdum=forced_response(sys,t,u1,x0)
+    
+    plt.plot(tdum,new_u1)
+    plt.show()
     #sideslip
     plt.plot(tdum,y1[0])
     plt.plot(tdum, actual_sideslip)
