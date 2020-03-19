@@ -62,8 +62,8 @@ This returns an array with the data
 #getting the kets
 #print(reference_data.keys())
 dictlist = reference_data["flightdata"].keys()
-#for i in dictlist:
-#    print(i,"  ",   reference_data["flightdata"][i]["description"])
+for i in dictlist:
+    print(i,"  ",   reference_data["flightdata"][i]["description"],reference_data["flightdata"][i]["units"] )
 #print()
 
 time_in_secs_utc = reference_data["flightdata"]["Gps_utcSec"]["data"]
