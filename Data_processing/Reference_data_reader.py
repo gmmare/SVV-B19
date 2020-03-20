@@ -118,7 +118,9 @@ def cl__values(utcSectime):
             Aircraft_weight_newton = Aircraft_weight * g
             CL = 2 * Aircraft_weight_newton / (rho * Vel ** 2 * S)
             aoa = reference_data["flightdata"]["vane_AOA"]["data"][j]
-            return CL, aoa
+            collecteddata = True
+
+    return CL, aoa
 
 def input_for_thrust_values(utcSectime):
     collecteddata = False
@@ -134,14 +136,67 @@ def input_for_thrust_values(utcSectime):
             print(altitude, machnum, tempdiff, fuelflowL, fuelflowR)
     return
 
+def cd_values(utcSectime):
+    if utcSectime == 31989:
+        thrust = 3574.19 + 3682.47
+    if utcSectime == 32129:
+        thrust = 2920.64+  2999.72
+    if utcSectime == 32258:
+        thrust = 2359.71 + 2492.66
+    if utcSectime == 32396:
+        thrust = 1835.3 + 1988.97
+    if utcSectime == 32619:
+        thrust = 1874.02 + 2060.28
+    if utcSectime == 32751:
+        thrust = 2190.85 + 2379.92
+
+    collecteddata = False
+    for j in range(len(reference_data["flightdata"]["Gps_utcSec"]["data"])):
+        if int(reference_data["flightdata"]["Gps_utcSec"]["data"][j]) == utcSectime and collecteddata == False:
+            altitude = reference_data["flightdata"]["Dadc1_alt"]["data"][j]
+            hp0 = altitude * 0.3048
+            rho = rho0 * pow(((1 + (lambd * hp0 / Temp0))), (-((g / (lambd * R)) + 1)))
+            vel = reference_data["flightdata"]["Dadc1_tas"]["data"][j] * 0.51444
+            collecteddata = True
+
+
+    cd = thrust / (0.5 * rho * vel *vel * S)
+    return cd
+
 def ref_time_to_utc(min,sec):
     time = min*60+sec +30832
     return time
 
-timestamp = ref_time_to_utc(31,59)
-#print(timestamp)
-#input_for_thrust_values(timestamp)
+ref_time_utc_list = [31989,32129,32258,32396,32619,32751]
 
+cl_list = []
+aoa_list = []
+cd_list = []
+
+for i in ref_time_utc_list:
+    cl,aoa = cl__values(i)
+    cd = cd_values(i)
+    cl_list.append(cl)
+    aoa_list.append(aoa)
+    cd_list.append(cd)
+
+print(cl_list,aoa_list,cd_list)
+
+plt.plot(cd_list,cl_list)
+plt.show()
+plt.plot(aoa_list,cl_list)
+plt.show()
 
 #plt.plot(time_in_secs_utc,yvalues)
 #plt.show()
+
+def c_m_alpha():
+    c_n_alpha = []
+    x_cg = []
+    x_n_fix = []
+    c = []
+
+    c_m_alpha = c_n_alpha * (x_cg-x_n_fix)/c
+
+    return c_m_alpha
+
