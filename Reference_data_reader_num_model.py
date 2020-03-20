@@ -147,11 +147,11 @@ def get_Phugoid(test_list_tas, test_list_alt, theta_list, angle_of_attack_list,p
 def get_DR(test_list_tas, test_list_alt, theta_list, angle_of_attack_list,test_list_pitchrate, t, start_hour, start_min, start_sec, end_hour, end_min, end_sec, delta_a, delta_e, delta_r): #Dutch Roll motion
     index=get_value(start_hour,start_min,start_sec) #1,1,57
     index_end=get_value(end_hour,end_min,end_sec) #1,2,18
-    print(index,index_end)
+
     DR_tas, DR_alt, DR_theta, DR_aoa, DR_PR, DR_time =get_kv(test_list_tas, test_list_alt,theta_list, angle_of_attack_list,test_list_pitchrate, t, index)
     lst=get_iv(delta_a, delta_e, delta_r, index, index_end,t)
     DR_inputs_da,DR_inputs_dr, DR_time=lst[0], lst[2], lst[-1]
-    print(len(DR_time))
+
     return DR_tas, DR_alt, DR_theta, DR_aoa, DR_PR, DR_inputs_da, DR_inputs_dr, DR_time
 
 def get_SP(test_list_tas, test_list_alt, theta_list, angle_of_attack_list,test_list_pitchrate, t, start_hour, start_min, start_sec, end_hour, end_min, end_sec, delta_a, delta_e, delta_r): #Short Period motion
