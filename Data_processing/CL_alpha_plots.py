@@ -9,8 +9,7 @@ stat_data = get_stat_data("20200311_V1.xlsx", 28, 35)
 #getting alpha values
 alpha = stat_data[:,2]
 
-W_total = 9165 + 80 + 102 + 60 + 67 + 59 + 78 + 66 + 86 + 87.5
-
+W_total = (9165 + 80 + 102 + 60 + 67 + 59 + 78 + 66 + 86 + 87.5)
 #==================calculating density==================
 #Constants and standard sea level values
 g0 = 9.80665 #[m/s2]
@@ -57,7 +56,7 @@ for i in range(len(IAS)):
 Weight_list = []
 F_used = stat_data[:,-2]
 for i in range(len(F_used)):
-    Weight_list.append((W_total - F_used[i] * 0.453592))
+    Weight_list.append((W_total - F_used[i] * 0.453592)*9.81)
 
 #==================Calculating CL==================
 CL_list = []
@@ -68,14 +67,14 @@ for i in range(len(alpha)):
 coef = np.polyfit(alpha,CL_list,1)
 poly1d_fn = np.poly1d(coef)
 
-plt.plot(alpha,CL_list, 'ob', alpha, poly1d_fn(alpha))
+plt.plot(alpha,CL_list, 'ob',alpha, poly1d_fn(alpha))
+print("CL alpha is:", coef[0])
 
-print("CL alpha is:")
-print(coef)
+
 
 plt.ylabel('CL')
 plt.xlabel('alpha')
 plt.title('CL-alpha plot')
 plt.xlim(0, max(alpha)+1)
-plt.ylim(0, 0.2)
+#plt.ylim(0, 0.2)
 plt.show()
