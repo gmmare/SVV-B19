@@ -74,10 +74,6 @@ elif a=='DR':
     end_hour,end_minu,end_sec=End_hour_DR, End_min_DR, End_sec_DR
     V1,hp1,th1,alpha1,PR1,inputs_da,inputs_dr,time=Reference_data_reader_num_model.get_DR(test_list_tas, test_list_alt, theta_list, angle_of_attack_list,test_list_pitchrate, t, start_hour, start_minu, start_sec, end_hour, end_minu, end_sec, delta_a, delta_e, delta_r)
     side_slip1,roll1,rollrate1,yawrate1=Reference_data_reader_num_model.get_DRasym(side_slip_list,roll_angle_list,roll_rate_list,yaw_rate_list, t, start_hour, start_minu, start_sec, end_hour, end_minu, end_sec)
-    
-    inputs_asym=[]
-    for i in range(len(inputs_dr)):
-        inputs_asym.append([inputs_da[i],inputs_dr[i]])
         
     inputs_asym=np.array(inputs_asym)
     V0=V1*0.5144444444444
@@ -90,10 +86,6 @@ elif a=='DR_yaw':
     end_hour,end_minu,end_sec=End_hour_DR_yaw, End_min_DR_yaw, End_sec_DR_yaw
     V1,hp1,th1,alpha1,PR1,inputs_da,inputs_dr,time=Reference_data_reader_num_model.get_DR(test_list_tas, test_list_alt, theta_list, angle_of_attack_list,test_list_pitchrate, t, start_hour, start_minu, start_sec, end_hour, end_minu, end_sec, delta_a, delta_e, delta_r)
     side_slip1,roll1,rollrate1,yawrate1=Reference_data_reader_num_model.get_DRasym(side_slip_list,roll_angle_list,roll_rate_list,yaw_rate_list, t, start_hour, start_minu, start_sec, end_hour, end_minu, end_sec)
-    
-    inputs_asym=[]
-    for i in range(len(inputs_dr)):
-        inputs_asym.append([inputs_da[i],inputs_dr[i]])
         
     inputs_asym=np.array(inputs_asym)
     V0=V1*0.5144444444444
@@ -107,11 +99,6 @@ elif a=='spiral':
     V1,hp1,th1,alpha1,PR1,inputs_da,inputs_dr,time=Reference_data_reader_num_model.get_DR(test_list_tas, test_list_alt, theta_list, angle_of_attack_list,test_list_pitchrate, t, start_hour, start_minu, start_sec, end_hour, end_minu, end_sec, delta_a, delta_e, delta_r)
     side_slip1,roll1,rollrate1,yawrate1=Reference_data_reader_num_model.get_DRasym(side_slip_list,roll_angle_list,roll_rate_list,yaw_rate_list, t, start_hour, start_minu, start_sec, end_hour, end_minu, end_sec)
     
-    inputs_asym=[]
-    for i in range(len(inputs_dr)):
-        inputs_asym.append([inputs_da[i],inputs_dr[i]])
-        
-    inputs_asym=np.array(inputs_asym)
     V0=V1*0.5144444444444
     hp0=hp1*0.3048 
     th0,alpha0,PR=th1*np.pi/180,alpha1*np.pi/180,PR1*np.pi/180
@@ -123,11 +110,6 @@ elif a=='AR':
     V1,hp1,th1,alpha1,PR1,inputs_da,inputs_dr,time=Reference_data_reader_num_model.get_DR(test_list_tas, test_list_alt, theta_list, angle_of_attack_list,test_list_pitchrate, t, start_hour, start_minu, start_sec, end_hour, end_minu, end_sec, delta_a, delta_e, delta_r)
     side_slip1,roll1,rollrate1,yawrate1=Reference_data_reader_num_model.get_DRasym(side_slip_list,roll_angle_list,roll_rate_list,yaw_rate_list, t, start_hour, start_minu, start_sec, end_hour, end_minu, end_sec)
     
-    inputs_asym=[]
-    for i in range(len(inputs_dr)):
-        inputs_asym.append([inputs_da[i],inputs_dr[i]])
-        
-    inputs_asym=np.array(inputs_asym)
     V0=V1*0.5144444444444
     hp0=hp1*0.3048 
     th0,alpha0,PR=th1*np.pi/180,alpha1*np.pi/180,PR1*np.pi/180
@@ -222,15 +204,15 @@ Cmu    = +0.06990
 Cmadot = +0.17800
 Cmq    = -8.79415
 
-CYb    = -0.7500
-CYbdot =  0     
+CYb    = -0.7500 
+CYbdot =  0
 CYp    = -0.0304
 CYr    = +0.8495
 CYda   = -0.0400
 CYdr   = +0.2300
 
 Clb    = -0.10260
-Clp    = -0.71085
+Clp    = -0.71085 #(-1 fits sometimes better)
 Clr    = +0.23760
 Clda   = -0.23088
 Cldr   = +0.03440
@@ -265,9 +247,9 @@ C = np.array([[1, 0, 0, 0],
               [0, 0, 1, 0],
               [0, 0, 0, 1]])
 D = np.array([[0],[0],[0],[0]])
-#D=-1*(np.linalg.inv(C_extra)).dot(C3)
 
-#print(np.linalg.eigvals(A))
+
+
 #A-Symmetric (_a)
 C1_a = np.array([[(CYbdot-2*mub)*b/V0, 0, 0, 0],
                [0, -0.5*b/V0, 0, 0],
@@ -286,7 +268,13 @@ C3_a = np.array([[CYda, CYdr],
 
 C_extra_a=C2_a+C1_a
 
+
+
+#Clb,Cnb, KX2,KXZ,KZ2
+#CYp, Clp, CYbdot, Cnbdot
+
 A_a = -(np.linalg.inv(C1_a)).dot(C2_a)
+print(np.linalg.inv(C1_a))
 B_a = -(np.linalg.inv(C1_a)).dot(C3_a)
  
 C_a = np.array([[1, 0, 0, 0],
@@ -295,10 +283,12 @@ C_a = np.array([[1, 0, 0, 0],
               [0, 0, 0, 1]])
 D_a = np.array([[0,0],[0,0],[0,0],[0,0]])
 
-D_a_i=np.array([[0],[0],[0],[0]])
-D_a_ii=np.array([[0],[0],[0],[0]])
 
 
+print(np.linalg.eigvals(A_a))
+
+
+    
 
 
 if a=='Phugoid' or a=='SP':
@@ -327,7 +317,6 @@ if a=='Phugoid' or a=='SP':
     
     for i in range(len(tdum)):
         actual_AOA[i]=actual_AOA[i]-alpha0
-        
         actual_TAS[i]=actual_TAS[i]+V0
         xdum[0][i]=xdum[0][i]+V0
         actual_pitch[i]=actual_pitch[i]-th0
@@ -355,52 +344,52 @@ if a=='Phugoid' or a=='SP':
     
 
 elif a=='DR' or a=='spiral' or a=='DR_yaw' or a=='AR':
-    #Response for symmetric flight
-    x0=np.matrix([[side_slip0],[roll0],[rollrate0],[yawrate0]]) 
+    #RESPONSE FOR ASYMMETRIC FLIGHT
+    x0=np.matrix([[0],[roll0],[rollrate0],[yawrate0]]) 
     t0=time[0]
     t1=time[-1]
     step=(time[-1]-time[0])/len(time)
     t_plot=np.arange(0,time[-1]-time[0], step)
     t=time
-
+    
+        #formulating the state space
     sys=ss(A_a,B_a,C_a,D_a)
-    
-    
-    #Defining inputs
+
+        #Defining inputs
     new_u1=[[],[]]
-    for i in range(len(inputs_asym)):
+    for i in range(len(inputs_dr)):
         new_u1[0].append([inputs_da[i]*np.pi/180])
         new_u1[1].append([inputs_dr[i]*np.pi/180])
-        
-    u1 = np.array(new_u1)
-    u1= np.array(u1).reshape(2, len(new_u1[0]))
+    
+        #Reshaping the array
+    u1=np.array(new_u1)
+    u1=np.array(u1).reshape(2, len(new_u1[0]))
        
+    #CREATING OUTPUTS
     tdum,y1,xdum=forced_response(sys,t,u1,x0)
     
-    #plt.plot(tdum,u1)
-    #plt.show()
     
-    #sideslip
-
+    #PLOTTING
+    plt.plot(t_plot,u1[0])
+    plt.plot(t_plot,u1[1])
+    plt.show()
+        #sideslip
     plt.plot(t_plot,y1[0])
     plt.plot(t_plot, actual_sideslip)
     plt.show()
     
-    #roll
+        #roll
     plt.plot(t_plot,y1[1])
-    #plt.plot(t_plot,y2[1])
     plt.plot(t_plot, actual_roll)
     plt.show()
     
-    #roll rate    
-    plt.plot(t_plot,y1[2])
-    #plt.plot(t_plot,y2[2])
+        #roll rate    
+    plt.plot(t_plot,y1[2])        
     plt.plot(t_plot, actual_rollrate)
     plt.show()
     
-    #yaw rate
+        #yaw rate
     plt.plot(t_plot,y1[3])
-    #plt.plot(t_plot,y2[3])
     plt.plot(t_plot, actual_yawrate)
     plt.show()
 
