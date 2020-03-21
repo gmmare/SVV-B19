@@ -7,10 +7,7 @@ import Reference_data_reader_num_model
 
 # xcg = 0.25 * c
 
-# Stationary flight condition
-tas,alt,pitch,AOA,PR,d_a,d_r,d_e,t='Dadc1_tas', 'Dadc1_alt', 'Ahrs1_Pitch', 'vane_AOA', 'Ahrs1_bPitchRate', 'delta_a', 'delta_r', 'delta_e', 'time' 
-side_slip1, side_slip2, roll_angle, roll_rate, yaw_rate='Ahrs1_bLatAcc','Ahrs1_bLongAcc', 'Ahrs1_Roll','Ahrs1_bRollRate', 'Ahrs1_bYawRate'
-
+'''
  #for reference data
 #Starting times of motions
 Start_hour_Phugoid, Start_min_Phugoid, Start_sec_Phugoid=0,53,57 #0,53,57
@@ -27,23 +24,26 @@ End_hour_DR, End_min_DR, End_sec_DR=1,2,20
 End_hour_DR_yaw, End_min_DR_yaw, End_sec_DR_yaw=1,3,10
 End_hour_spiral, End_min_spiral, End_sec_spiral=1,6,50
 '''
+
+# Stationary flight condition
+tas,alt,pitch,AOA,PR,d_a,d_r,d_e,t='Dadc1_tas', 'Dadc1_alt', 'Ahrs1_Pitch', 'vane_AOA', 'Ahrs1_bPitchRate', 'delta_a', 'delta_r', 'delta_e', 'time' 
+side_slip1, side_slip2, roll_angle, roll_rate, yaw_rate='Ahrs1_bLatAcc','Ahrs1_bLongAcc', 'Ahrs1_Roll','Ahrs1_bRollRate', 'Ahrs1_bYawRate'
+
 #ACTUAL flight test
 #Starting times of motion
-Start_hour_Phugoid, Start_min_Phugoid, Start_sec_Phugoid=0,53,59
-Start_hour_AR, Start_min_AR, Start_sec_AR=0,57,42
-Start_hour_SP, Start_min_SP, Start_sec_SP=0,58,19
-Start_hour_DR, Start_min_DR, Start_sec_DR=0,58,39
-Start_hour_DR_yaw, Start_min_DR_yaw, Start_sec_DR_yaw=0,59,11
+Start_hour_Phugoid, Start_min_Phugoid, Start_sec_Phugoid=0,52,30
+Start_hour_SP, Start_min_SP, Start_sec_SP=0,55,38
+Start_hour_AR, Start_min_AR, Start_sec_AR=0,57,47
+Start_hour_DR, Start_min_DR, Start_sec_DR=0,58,44
+Start_hour_DR_yaw, Start_min_DR_yaw, Start_sec_DR_yaw=0,59,32
 Start_hour_spiral, Start_min_spiral, Start_sec_spiral=1,2,59
 
-End_hour_Phugoid, End_min_Phugoid, End_sec_Phugoid=0,57,40
-End_hour_AR, End_min_AR, End_sec_AR=0,58,13
-End_hour_SP, End_min_SP, End_sec_SP=0,58,24
-End_hour_DR, End_min_DR, End_sec_DR=0,59,0
-End_hour_DR_yaw, End_min_DR_yaw, End_sec_DR_yaw=0,59,22
+End_hour_Phugoid, End_min_Phugoid, End_sec_Phugoid=0,55,20
+End_hour_SP, End_min_SP, End_sec_SP=0,56,23
+End_hour_AR, End_min_AR, End_sec_AR=0,58,20
+End_hour_DR, End_min_DR, End_sec_DR=0,59,15
+End_hour_DR_yaw, End_min_DR_yaw, End_sec_DR_yaw=1,0,6
 End_hour_spiral, End_min_spiral, End_sec_spiral=1,4,25
-'''
-
 
 
 #Getting the lists of variables
@@ -51,7 +51,9 @@ End_hour_spiral, End_min_spiral, End_sec_spiral=1,4,25
 test_list_tas, test_list_alt, theta_list, angle_of_attack_list,test_list_pitchrate, delta_a, delta_r, delta_e,t=Reference_data_reader_num_model.get_lists(tas,alt,pitch,AOA,PR,d_a,d_r,d_e,t) #gets the list of all avriables irrespective of time
 side_slip_list,roll_angle_list,roll_rate_list,yaw_rate_list=Reference_data_reader_num_model.get_lists_asymmetric(side_slip1, side_slip2, roll_angle, roll_rate, yaw_rate)
 
-a='spiral' #Phugoid, DR, SP, spiral, AR, DR_yaw       tas,alt,pitch,AOA,PR,d_a,d_r,d_e,t
+
+
+a='SP' #Phugoid, DR, SP, spiral, AR, DR_yaw       tas,alt,pitch,AOA,PR,d_a,d_r,d_e,t
 
 if a=='Phugoid':
     start_hour,start_minu,start_sec=Start_hour_Phugoid, Start_min_Phugoid, Start_sec_Phugoid
@@ -122,7 +124,14 @@ actual_TAS, actual_pitch, actual_AOA, actual_pitchrate,actual_sideslip, actual_r
 #V0: true airspeed in the stationary flight condition [m/sec]
 #alpha0: angle of attack in the stationary flight condition [rad]
 #th0: pitch angle in the stationary flight condition [rad]
-    
+
+#redefining side_slip list for actual data
+new_side_slip=[]
+for i in range(len(inputs_dr)):
+    new_side_slip.append(-inputs_dr[i]*np.pi/180)
+actual_sideslip=list(new_side_slip)
+side_slip0=actual_sideslip[0]
+
 
 # Aircraft mass
 m      =      Reference_data_reader_num_model.get_mass(start_hour,start_minu,start_sec,t,test_list_alt,test_list_tas)   # mass [kg] 
@@ -254,29 +263,19 @@ D = np.array([[0],[0],[0],[0]])
 C1_a = np.array([[(CYbdot-2*mub)*b/V0, 0, 0, 0],
                [0, -0.5*b/V0, 0, 0],
                [0, 0, -2*mub*KX2*(b/V0)**2, 2*mub*KXZ*(b/V0)**2],
-               [Cnbdot*b/V0, 0, 2*mub*KXZ*(b/V0)**2, -2*mub*KZ2*(b/V0)**2]]) 
-    
+               [Cnbdot*b/V0, 0, 2*mub*KXZ*(b/V0)**2, -2*mub*KZ2*(b/V0)**2]])  
 C2_a = np.array([[CYb, CL, CYp*b/(2*V0), (CYr-4*mub)*b/(2*V0)], 
                [0, 0, (b/(2*V0)), 0],
                [Clb, 0, Clp*b/(2*V0), Clr*b/(2*V0)], 
                [Cnb, 0, Cnp*b/(2*V0), Cnr*b/(2*V0)]]) 
-    
 C3_a = np.array([[CYda, CYdr],
                [0, 0],
                [Clda, Cldr],
                [Cnda, Cndr]])
 
-C_extra_a=C2_a+C1_a
-
-
-
-#Clb,Cnb, KX2,KXZ,KZ2
-#CYp, Clp, CYbdot, Cnbdot
 
 A_a = -(np.linalg.inv(C1_a)).dot(C2_a)
-print(np.linalg.inv(C1_a))
 B_a = -(np.linalg.inv(C1_a)).dot(C3_a)
- 
 C_a = np.array([[1, 0, 0, 0],
               [0, 1, 0, 0],
               [0, 0, 1, 0],
@@ -299,7 +298,9 @@ if a=='Phugoid' or a=='SP':
     t0=time[0]
     t1=time[-1]
     step=0.1
-    t=np.arange(0,time[-1]-time[0], (time[-1]-time[0])/len(time))
+    t_plot=np.arange(0,time[-1]-time[0], (time[-1]-time[0])/len(time))
+    t=time
+    
     
     sys=ss(A,B,C,D)
     
@@ -318,34 +319,51 @@ if a=='Phugoid' or a=='SP':
     for i in range(len(tdum)):
         actual_AOA[i]=actual_AOA[i]-alpha0
         actual_TAS[i]=actual_TAS[i]+V0
-        xdum[0][i]=xdum[0][i]+V0
+        y1[0][i]=y1[0][i]+V0
         actual_pitch[i]=actual_pitch[i]-th0
         
-    #speed
-    plt.plot(tdum,xdum[0])
-    plt.plot(tdum, actual_TAS)
-    plt.show()     
-    
-    #AOA
-    plt.plot(tdum,xdum[1])
-    plt.plot(tdum, actual_AOA)
+    #PLOTTING
+        #TAS
+    plt.title('Actual versus numerical model true air speed')
+    plt.xlabel('time [sec]')
+    plt.ylabel('True airspeed [m/s]')
+    plt.plot(t_plot,y1[0], label= 'Numerical model data')        
+    plt.plot(t_plot, actual_TAS, label='Actual data')
     plt.show()
     
-    #Pitch
-    plt.plot(tdum,xdum[2])
-    #plt.ylim(0,0.2)
-    plt.plot(tdum,actual_pitch)
+        #angle of attack
+    plt.title('Actual versus numerical model angle of attack')
+    plt.xlabel('time [sec]')
+    plt.ylabel('angle of attack [rad]')
+    plt.plot(t_plot,y1[1], label= 'Numerical model data')        
+    plt.plot(t_plot, actual_AOA, label='Actual data')
     plt.show()
     
-    #Pitch rate
-    plt.plot(tdum,xdum[3])
-    plt.plot(tdum,actual_pitchrate)
+        #pitch   
+    plt.title('Actual versus numerical model pitch')
+    plt.xlabel('time [sec]')
+    plt.ylabel('pitch [rad]')
+    plt.plot(t_plot,y1[2], label= 'Numerical model data')        
+    plt.plot(t_plot, actual_pitch, label='Actual data')
     plt.show()
+    
+        #pitch rate
+    plt.title('Actual versus numerical model pitch rate')
+    plt.xlabel('time [sec]')
+    plt.ylabel('pitch rate [rad/sec]')
+    plt.plot(t_plot,y1[3], label= 'Numerical model data')
+    plt.plot(t_plot, actual_pitchrate, label='Actual data')
+    plt.show()
+    
+    print('TAS:', V0)
+    print('AOA:', alpha0)
+    print('pitch:', th0)
+    print('pitch rate:', PR)
     
 
 elif a=='DR' or a=='spiral' or a=='DR_yaw' or a=='AR':
     #RESPONSE FOR ASYMMETRIC FLIGHT
-    x0=np.matrix([[0],[roll0],[rollrate0],[yawrate0]]) 
+    x0=np.matrix([[side_slip0],[roll0],[rollrate0],[yawrate0]]) 
     t0=time[0]
     t1=time[-1]
     step=(time[-1]-time[0])/len(time)
@@ -358,8 +376,8 @@ elif a=='DR' or a=='spiral' or a=='DR_yaw' or a=='AR':
         #Defining inputs
     new_u1=[[],[]]
     for i in range(len(inputs_dr)):
-        new_u1[0].append([inputs_da[i]*np.pi/180])
-        new_u1[1].append([inputs_dr[i]*np.pi/180])
+        new_u1[0].append([-inputs_da[i]*np.pi/180])
+        new_u1[1].append([-inputs_dr[i]*np.pi/180])
     
         #Reshaping the array
     u1=np.array(new_u1)
@@ -367,30 +385,47 @@ elif a=='DR' or a=='spiral' or a=='DR_yaw' or a=='AR':
        
     #CREATING OUTPUTS
     tdum,y1,xdum=forced_response(sys,t,u1,x0)
-    
-    
+
     #PLOTTING
+        #inputs
     plt.plot(t_plot,u1[0])
     plt.plot(t_plot,u1[1])
     plt.show()
+    
         #sideslip
-    plt.plot(t_plot,y1[0])
-    plt.plot(t_plot, actual_sideslip)
+    plt.title('Actual versus numerical model side slip')
+    plt.xlabel('time [sec]')
+    plt.ylabel('side slip angle [rad]')
+    plt.plot(t_plot,y1[0], label= 'Numerical model data')        
+    plt.plot(t_plot, actual_sideslip, label='Actual data')
     plt.show()
     
         #roll
-    plt.plot(t_plot,y1[1])
-    plt.plot(t_plot, actual_roll)
+    plt.title('Actual versus numerical model roll')
+    plt.xlabel('time [sec]')
+    plt.ylabel('roll angle [rad]')
+    plt.plot(t_plot,y1[1], label= 'Numerical model data')        
+    plt.plot(t_plot, actual_roll, label='Actual data')
     plt.show()
     
         #roll rate    
-    plt.plot(t_plot,y1[2])        
-    plt.plot(t_plot, actual_rollrate)
+    plt.title('Actual versus numerical model roll rate')
+    plt.xlabel('time [sec]')
+    plt.ylabel('roll rate [rad/sec]')
+    plt.plot(t_plot,y1[2], label= 'Numerical model data')        
+    plt.plot(t_plot, actual_rollrate, label='Actual data')
     plt.show()
     
         #yaw rate
-    plt.plot(t_plot,y1[3])
-    plt.plot(t_plot, actual_yawrate)
+    plt.title('Actual versus numerical model yaw rate')
+    plt.xlabel('time [sec]')
+    plt.ylabel('yaw rate [rad/sec]')
+    plt.plot(t_plot,y1[3], label= 'Numerical model data')
+    plt.plot(t_plot, actual_yawrate, label='Actual data')
     plt.show()
 
+    print('sideslip:', side_slip0)
+    print('roll: ', roll0)
+    print('rollrate:', rollrate0)
+    print('yawrate:', yawrate0)
 
