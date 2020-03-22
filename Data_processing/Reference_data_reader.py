@@ -190,13 +190,4 @@ for i in ref_time_utc_list:
 #plt.plot(time_in_secs_utc,yvalues)
 #plt.show()
 
-def c_m_alpha():
-    c_n_alpha = []
-    x_cg = []
-    x_n_fix = []
-    c = []
-
-    c_m_alpha = c_n_alpha * (x_cg-x_n_fix)/c
-
-    return c_m_alpha
 
