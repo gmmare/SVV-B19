@@ -94,8 +94,8 @@ This returns an array with the data
 #getting the kets
 #print(reference_data.keys())
 dictlist = reference_data["flightdata"].keys()
-for i in dictlist:
-    print(i,"  ",   reference_data["flightdata"][i]["description"],reference_data["flightdata"][i]["units"] )
+# for i in dictlist:
+#     print(i,"  ",   reference_data["flightdata"][i]["description"],reference_data["flightdata"][i]["units"] )
 #print()
 
 time_in_secs_utc = reference_data["flightdata"]["Gps_utcSec"]["data"]
@@ -126,14 +126,14 @@ def input_for_thrust_values(utcSectime):
     collecteddata = False
     for j in range(len(reference_data["flightdata"]["Gps_utcSec"]["data"])):
         if int(reference_data["flightdata"]["Gps_utcSec"]["data"][j]) == utcSectime and collecteddata == False:
-            print(reference_data["flightdata"]["time"]["data"][j])
+            #print(reference_data["flightdata"]["time"]["data"][j])
             altitude  =  reference_data["flightdata"]["Dadc1_alt"]["data"][j] * 0.3048
             machnum   =  reference_data["flightdata"]["Dadc1_mach"]["data"][j]
             tempdiff  = reference_data["flightdata"]["Dadc1_tat"]["data"][j] - (Temp0 + lambd * altitude) + 273.15
             fuelflowL = reference_data["flightdata"]["lh_engine_FMF"]["data"][j] /7936.64
             fuelflowR = reference_data["flightdata"]["rh_engine_FMF"]["data"][j] /7936.64
             collecteddata = True
-            print(altitude, machnum, tempdiff, fuelflowL, fuelflowR)
+            #print(altitude, machnum, tempdiff, fuelflowL, fuelflowR)
     return
 
 def cd_values(utcSectime):
@@ -180,12 +180,12 @@ for i in ref_time_utc_list:
     aoa_list.append(aoa)
     cd_list.append(cd)
 
-print(cl_list,aoa_list,cd_list)
-
-plt.plot(cd_list,cl_list)
-plt.show()
-plt.plot(aoa_list,cl_list)
-plt.show()
+#print(cl_list,aoa_list,cd_list)
+#
+# plt.plot(cd_list,cl_list)
+# plt.show()
+# plt.plot(aoa_list,cl_list)
+# plt.show()
 
 #plt.plot(time_in_secs_utc,yvalues)
 #plt.show()
