@@ -75,14 +75,15 @@ de_list = stat_data[:,3]
 #     de_list.append(stat_data)
 #==================Calculating Cm alpha==================
 CN = (CL_list[0] * 0.5 * rho_list[0] * (TAS[0] ** 2) * 30)/(Weight_list[1])
-CM_delta = -1/(de_list[0] - de_list[1]) * CN * ((0.0254 *(X_cg_config1 - X_cg_config2))/2.0569) #measured in rad^-1
+CM_delta = -1/(de_list[0] - de_list[1]) * CN * ((0.0254 *(X_cg_config1 - X_cg_config2))/2.0569)
 
 #calculating deflection gradient
 stat_data1 = get_stat_data("20200311_V1.xlsx", 59, 66)
-coeff_deflection = np.polyfit(stat_data1[:,2],stat_data1[:,3],1) # in deflection angle per degree
-ddelta_da = coeff_deflection[0] #* (pi/180) # conversion to rad^-1
+coeff_deflection = np.polyfit(stat_data1[:,2],stat_data1[:,3],1)
+ddelta_da = coeff_deflection[0]
+
+
 print('ddelta_da',ddelta_da)
 print('CM_delta', CM_delta)
-
 CM_alpha = - CM_delta * ddelta_da
 print(CM_alpha)

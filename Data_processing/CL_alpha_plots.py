@@ -2,6 +2,7 @@ from Reference_data_reader import get_stat_data
 import numpy as np
 from math import *
 import matplotlib.pyplot as plt
+from Reduction_functions import red_velocity, red_mass
 
 #importing data
 stat_data = get_stat_data("20200311_V1.xlsx", 28, 35)
@@ -34,34 +35,30 @@ for i in range(len(alt)):
         T = T0 + a1*(h)
         p = p0*((T/T0)**(-g0/(a1*R)))
         rho = p/(R*T)
-
-    #Tropopause calculations
-    if h > 11000:
-        T = T0 + a1*(h)
-        p = p0*((T/T0)**(-g0/(a1*R)))
-        T2 = T
-        p2 = p*(exp((-g0/(R*T2))*(h-11000)))
-        rho = p2/(R*T2)
-
     rho_list.append(rho)
 
-
 #==================converting velocity==================
-IAS = stat_data[:,1]
+IAS = stat_data[:,1] # this is calibrated veloctiy in kts
 TAS = []
+TAT = stat_data[:,-1] #true air temp in degree
+red_vel = []
 for i in range(len(IAS)):
     TAS.append((np.sqrt(rho0/rho_list[i])*IAS[i])*0.514444)
+    red_vel.append(red_velocity(alt[i] * 0.3048, IAS[i]*0.514444, TAT[i] + 273,rho_list[i]))
 
+print(red_vel)
+print(TAS)
 #==================adjusting for weight==================
 Weight_list = []
 F_used = stat_data[:,-2]
 for i in range(len(F_used)):
-    Weight_list.append((W_total - F_used[i] * 0.453592)*9.81)
+    Weight = (W_total - F_used[i] * 0.453592)*9.81
+    Weight_list.append(Weight)
 
 #==================Calculating CL==================
 CL_list = []
 for i in range(len(alpha)):
-    CL = Weight_list[i]/(0.5 * rho_list[i] * (TAS[i] ** 2) * 30)
+    CL = Weight_list[i]/(0.5 * rho_list[i] * (red_vel[i] ** 2) * 30)
     CL_list.append(CL)
 
 coef = np.polyfit(alpha,CL_list,1)

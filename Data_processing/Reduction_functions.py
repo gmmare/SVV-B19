@@ -1,9 +1,7 @@
-import matplotlib.pyplot as plt
+
 from Cit_par import *
-import numpy as np
 import Reference_data_reader as ref_data
 reference_data = ref_data.reference_data
-import Cit_par as Data
 
 rho0    = 1.2250            # air density at sea level [kg/m^3]
 lambd   = -0.0065           # temperature gradient in ISA [K/m]
@@ -32,11 +30,14 @@ def red_velocity(hp, V_c, T_m, rho):
 
     V_true = M * sqrt(gam * R * T)
 
-    V_e = V_true * sqrt(rho/rho0)
+    rho1 = P/(R * T)
+
+    V_e = V_true * sqrt(rho1/rho0)
 
     return V_e
 
-def red_mass(V_e, W):
+def red_mass(V_e, W): # for the elevator trim curve
+
     '''
     :param V_e: equivalent airspeed
     :param W: weight of the aircraft in [N]
@@ -46,6 +47,6 @@ def red_mass(V_e, W):
 
     return V_e2
 
-def red_elev_defl():
-
-    delta_e_eq = - 1/C_m_delta * (C_m_0  + (C_m_alpha/C_n_alpha) * (W/(0.5 * rho * (V_e ** 2) * S)) + C_m_delta_f * delta_f + C_m_T_c * T_c_s)
+# def red_elev_defl(C_m_delta, C_m_0, C_m_alpha, C_n_alpha):
+#
+#     delta_e_eq = - 1/C_m_delta * (C_m_0  + (C_m_alpha/C_n_alpha) * (W/(0.5 * rho * (V_e ** 2) * S)) + C_m_delta_f * delta_f + C_m_T_c * T_c_s)
