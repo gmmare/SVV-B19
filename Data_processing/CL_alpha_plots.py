@@ -46,8 +46,6 @@ for i in range(len(IAS)):
     TAS.append((np.sqrt(rho0/rho_list[i])*IAS[i])*0.514444)
     red_vel.append(red_velocity(alt[i] * 0.3048, IAS[i]*0.514444, TAT[i] + 273,rho_list[i]))
 
-print(red_vel)
-print(TAS)
 #==================adjusting for weight==================
 Weight_list = []
 F_used = stat_data[:,-2]
@@ -73,5 +71,4 @@ plt.ylabel('CL')
 plt.xlabel('alpha')
 plt.title('CL-alpha plot')
 plt.xlim(0, max(alpha)+1)
-#plt.ylim(0, 0.2)
 plt.show()

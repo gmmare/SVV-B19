@@ -1,8 +1,8 @@
 from Reference_data_reader import get_stat_data
 import numpy as np
+from Reduction_functions import red_velocity, red_mass
 from math import *
 import matplotlib.pyplot as plt
-
 
 #importing data
 stat_data = get_stat_data("20200311_V1.xlsx", 75, 77)
@@ -21,6 +21,13 @@ rho0 = p0/(R*T0) #[kg/m3]
 
 X_cg_config1 = 214.614 #inch
 X_cg_config2 = 196.999
+#==================calculating density==================
+#Constants and standard sea level values
+g0 = 9.80665 #[m/s2]
+R = 287 #[J/kgK]
+T0 = 288.15 #[K]
+p0 = 101325 #[Pa]
+rho0 = p0/(R*T0) #[kg/m3]
 
 #temperature change per altitude
 a1 = -0.0065    #0<11km
@@ -38,35 +45,28 @@ for i in range(len(alt)):
         T = T0 + a1*(h)
         p = p0*((T/T0)**(-g0/(a1*R)))
         rho = p/(R*T)
-
-    #Tropopause calculations
-    if h > 11000:
-        T = T0 + a1*(h)
-        p = p0*((T/T0)**(-g0/(a1*R)))
-        T2 = T
-        p2 = p*(exp((-g0/(R*T2))*(h-11000)))
-        rho = p2/(R*T2)
-
     rho_list.append(rho)
 
-
 #==================converting velocity==================
-IAS = stat_data[:,1]
+IAS = stat_data[:,1] # this is calibrated veloctiy in kts
 TAS = []
+TAT = stat_data[:,-1] #true air temp in degree
+red_vel = []
 for i in range(len(IAS)):
-    TAS.append((np.sqrt(rho0/rho_list[i])*IAS[i])*0.514444) #m/s
+    TAS.append((np.sqrt(rho0/rho_list[i])*IAS[i])*0.514444)
+    red_vel.append(red_velocity(alt[i] * 0.3048, IAS[i]*0.514444, TAT[i] + 273,rho_list[i]))
 
 #==================adjusting for weight==================
 Weight_list = []
 F_used = stat_data[:,-2]
 for i in range(len(F_used)):
-    Weight_list.append((W_total - F_used[i] * 0.453592) * 9.81) #Newton
-
+    Weight = (W_total - F_used[i] * 0.453592)*9.81
+    Weight_list.append(Weight)
 
 #==================Calculating CL==================
 CL_list = []
 for i in range(len(alpha)):
-    CL = Weight_list[i]/(0.5 * rho_list[i] * (TAS[i] ** 2) * 30) #[-}
+    CL = Weight_list[i]/(0.5 * rho_list[i] * (red_vel[i] ** 2) * 30)
     CL_list.append(CL)
 
 
@@ -86,4 +86,4 @@ ddelta_da = coeff_deflection[0]
 print('ddelta_da',ddelta_da)
 print('CM_delta', CM_delta)
 CM_alpha = - CM_delta * ddelta_da
-print(CM_alpha)
+print('CM_alpha', CM_alpha)
