@@ -32,14 +32,14 @@ side_slip1, side_slip2, roll_angle, roll_rate, yaw_rate='Ahrs1_bLatAcc','Ahrs1_b
 #ACTUAL flight test
 #Starting times of motion
 Start_hour_Phugoid, Start_min_Phugoid, Start_sec_Phugoid=0,52,30
-Start_hour_SP, Start_min_SP, Start_sec_SP=0,55,38
+Start_hour_SP, Start_min_SP, Start_sec_SP=0,55,53
 Start_hour_AR, Start_min_AR, Start_sec_AR=0,57,47
 Start_hour_DR, Start_min_DR, Start_sec_DR=0,58,44
 Start_hour_DR_yaw, Start_min_DR_yaw, Start_sec_DR_yaw=0,59,32
 Start_hour_spiral, Start_min_spiral, Start_sec_spiral=1,2,59
 
 End_hour_Phugoid, End_min_Phugoid, End_sec_Phugoid=0,55,20
-End_hour_SP, End_min_SP, End_sec_SP=0,56,23
+End_hour_SP, End_min_SP, End_sec_SP=0,56,10
 End_hour_AR, End_min_AR, End_sec_AR=0,58,20
 End_hour_DR, End_min_DR, End_sec_DR=0,59,15
 End_hour_DR_yaw, End_min_DR_yaw, End_sec_DR_yaw=1,0,6
@@ -53,7 +53,7 @@ side_slip_list,roll_angle_list,roll_rate_list,yaw_rate_list=Reference_data_reade
 
 
 
-a='SP' #Phugoid, DR, SP, spiral, AR, DR_yaw       tas,alt,pitch,AOA,PR,d_a,d_r,d_e,t
+a='DR' #Phugoid, DR, SP, spiral, AR, DR_yaw       tas,alt,pitch,AOA,PR,d_a,d_r,d_e,t
 
 if a=='Phugoid':
     start_hour,start_minu,start_sec=Start_hour_Phugoid, Start_min_Phugoid, Start_sec_Phugoid
@@ -69,15 +69,13 @@ elif a=='SP':
     V1,hp1,th1,alpha1,PR,inputs_de,time=Reference_data_reader_num_model.get_SP(test_list_tas, test_list_alt, theta_list, angle_of_attack_list, test_list_pitchrate, t, start_hour, start_minu, start_sec, end_hour, end_minu, end_sec, delta_a, delta_e, delta_r)
     V0=V1*0.5144444444444
     hp0=hp1*0.3048 
-    th0,alpha0,PR=th1*np.pi/180,alpha1*np.pi/180,PR1*np.pi/180
+    th0,alpha0,PR=th1*np.pi/180,alpha1*np.pi/180,PR*np.pi/180
     
 elif a=='DR':
     start_hour,start_minu,start_sec=Start_hour_DR, Start_min_DR, Start_sec_DR
     end_hour,end_minu,end_sec=End_hour_DR, End_min_DR, End_sec_DR
     V1,hp1,th1,alpha1,PR1,inputs_da,inputs_dr,time=Reference_data_reader_num_model.get_DR(test_list_tas, test_list_alt, theta_list, angle_of_attack_list,test_list_pitchrate, t, start_hour, start_minu, start_sec, end_hour, end_minu, end_sec, delta_a, delta_e, delta_r)
     side_slip1,roll1,rollrate1,yawrate1=Reference_data_reader_num_model.get_DRasym(side_slip_list,roll_angle_list,roll_rate_list,yaw_rate_list, t, start_hour, start_minu, start_sec, end_hour, end_minu, end_sec)
-        
-    inputs_asym=np.array(inputs_asym)
     V0=V1*0.5144444444444
     hp0=hp1*0.3048 
     th0,alpha0,PR=th1*np.pi/180,alpha1*np.pi/180,PR1*np.pi/180
@@ -89,7 +87,7 @@ elif a=='DR_yaw':
     V1,hp1,th1,alpha1,PR1,inputs_da,inputs_dr,time=Reference_data_reader_num_model.get_DR(test_list_tas, test_list_alt, theta_list, angle_of_attack_list,test_list_pitchrate, t, start_hour, start_minu, start_sec, end_hour, end_minu, end_sec, delta_a, delta_e, delta_r)
     side_slip1,roll1,rollrate1,yawrate1=Reference_data_reader_num_model.get_DRasym(side_slip_list,roll_angle_list,roll_rate_list,yaw_rate_list, t, start_hour, start_minu, start_sec, end_hour, end_minu, end_sec)
         
-    inputs_asym=np.array(inputs_asym)
+    
     V0=V1*0.5144444444444
     hp0=hp1*0.3048 
     th0,alpha0,PR=th1*np.pi/180,alpha1*np.pi/180,PR1*np.pi/180
@@ -126,6 +124,7 @@ actual_TAS, actual_pitch, actual_AOA, actual_pitchrate,actual_sideslip, actual_r
 #th0: pitch angle in the stationary flight condition [rad]
 
 #redefining side_slip list for actual data
+
 new_side_slip=[]
 for i in range(len(inputs_dr)):
     new_side_slip.append(-inputs_dr[i]*np.pi/180)
