@@ -39,8 +39,8 @@ Start_hour_DR_yaw, Start_min_DR_yaw, Start_sec_DR_yaw=0,59,32
 Start_hour_spiral, Start_min_spiral, Start_sec_spiral=1,2,59
 
 End_hour_Phugoid, End_min_Phugoid, End_sec_Phugoid=0,55,20
-End_hour_SP, End_min_SP, End_sec_SP=0,56,10
-End_hour_AR, End_min_AR, End_sec_AR=0,58,20
+End_hour_SP, End_min_SP, End_sec_SP=0,56,3
+End_hour_AR, End_min_AR, End_sec_AR=0,58,00
 End_hour_DR, End_min_DR, End_sec_DR=0,59,15
 End_hour_DR_yaw, End_min_DR_yaw, End_sec_DR_yaw=1,0,6
 End_hour_spiral, End_min_spiral, End_sec_spiral=1,4,25
@@ -53,7 +53,7 @@ side_slip_list,roll_angle_list,roll_rate_list,yaw_rate_list=Reference_data_reade
 
 
 
-a='AR' #Phugoid, DR, SP, spiral, AR, DR_yaw       tas,alt,pitch,AOA,PR,d_a,d_r,d_e,t
+a='SP' #Phugoid, DR, SP, spiral, AR, DR_yaw       tas,alt,pitch,AOA,PR,d_a,d_r,d_e,t
 
 if a=='Phugoid':
     start_hour,start_minu,start_sec=Start_hour_Phugoid, Start_min_Phugoid, Start_sec_Phugoid
@@ -248,6 +248,7 @@ C2 = np.array([[CXu/V0, CXa, CZ0, CXq*c/V0],
 C3 = np.array([[CXde], [CZde], [0], [Cmde]])
 C_extra=C2+C1
 
+
 A = (-np.linalg.inv(C1)).dot(C2)
 B = (-np.linalg.inv(C1)).dot(C3)
 C = np.array([[1, 0, 0, 0],
@@ -255,7 +256,6 @@ C = np.array([[1, 0, 0, 0],
               [0, 0, 1, 0],
               [0, 0, 0, 1]])
 D = np.array([[0],[0],[0],[0]])
-
 
 
 #A-Symmetric (_a)
@@ -281,6 +281,15 @@ C_a = np.array([[1, 0, 0, 0],
               [0, 0, 0, 1]])
 D_a = np.array([[0,0],[0,0],[0,0],[0,0]])
 
+if a=='DR'or a=='DR_yaw':
+    A_a[1]=[10e-20,10e-20,10e-20,10e-20]
+    B_a[1]=[10e-20,10e-20]
+    A_a[2]=[10e-20,10e-20,10e-20,10e-20]
+    B_a[2]=[10e-20,10e-20]
+    
+if a=='AR':
+    A_a[0],A_a[3]= [10e-20,10e-20,10e-20,10e-20], [10e-20,10e-20,10e-20,10e-20]
+    B_a[0],B_a[3]=[10e-20,10e-20],[10e-20,10e-20]
 
 
 print(np.linalg.eigvals(A_a))
