@@ -33,7 +33,7 @@ side_slip1, side_slip2, roll_angle, roll_rate, yaw_rate='Ahrs1_bLatAcc','Ahrs1_b
 #Starting times of motion
 Start_hour_Phugoid, Start_min_Phugoid, Start_sec_Phugoid=0,52,30
 Start_hour_SP, Start_min_SP, Start_sec_SP=0,55,53
-Start_hour_AR, Start_min_AR, Start_sec_AR=0,57,47
+Start_hour_AR, Start_min_AR, Start_sec_AR=0,57,35
 Start_hour_DR, Start_min_DR, Start_sec_DR=0,58,44
 Start_hour_DR_yaw, Start_min_DR_yaw, Start_sec_DR_yaw=0,59,32
 Start_hour_spiral, Start_min_spiral, Start_sec_spiral=1,2,59
@@ -53,7 +53,7 @@ side_slip_list,roll_angle_list,roll_rate_list,yaw_rate_list=Reference_data_reade
 
 
 
-a='DR' #Phugoid, DR, SP, spiral, AR, DR_yaw       tas,alt,pitch,AOA,PR,d_a,d_r,d_e,t
+a='AR' #Phugoid, DR, SP, spiral, AR, DR_yaw       tas,alt,pitch,AOA,PR,d_a,d_r,d_e,t
 
 if a=='Phugoid':
     start_hour,start_minu,start_sec=Start_hour_Phugoid, Start_min_Phugoid, Start_sec_Phugoid
