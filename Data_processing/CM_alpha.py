@@ -7,7 +7,7 @@ import matplotlib.pyplot as plt
 #importing data
 stat_data = get_stat_data("20200311_V1.xlsx", 75, 77)
 
-W_total = (9165 + 80 + 102 + 60 + 67 + 59 + 78 + 66 + 86 + 87.5)
+W_total = 6471 #(9165 + 80 + 102 + 60 + 67 + 59 + 78 + 66 + 86 + 87.5)
 
 #getting alpha values
 alpha = stat_data[:,2]
