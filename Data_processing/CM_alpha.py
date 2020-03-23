@@ -69,7 +69,6 @@ for i in range(len(alpha)):
     CL = Weight_list[i]/(0.5 * rho_list[i] * (red_vel[i] ** 2) * 30)
     CL_list.append(CL)
 
-
 de_list = stat_data[:,3]
 # for i in range(len(alt)):
 #     de_list.append(stat_data)

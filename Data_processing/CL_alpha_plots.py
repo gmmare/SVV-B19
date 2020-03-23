@@ -65,8 +65,6 @@ poly1d_fn = np.poly1d(coef)
 plt.plot(alpha,CL_list, 'ob',alpha, poly1d_fn(alpha))
 print("CL alpha is:", coef[0])
 
-
-
 plt.ylabel('CL')
 plt.xlabel('alpha')
 plt.title('CL-alpha plot')
