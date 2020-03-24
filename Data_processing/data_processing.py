@@ -26,8 +26,6 @@ for j in range(len(reference_data["flightdata"]["Gps_utcSec"]["data"])):
         Vel =  reference_data["flightdata"]["Dadc1_tas"]["data"][j]
         Fuel_out_weight = reference_data["flightdata"]["lh_engine_FU"]["data"][j] +  reference_data["flightdata"]["rh_engine_FU"]["data"][j]
 
-
-
         Aircraft_weight = TOW - Fuel_out_weight
         Aircraft_weight_newton = Aircraft_weight * g
         CL = 2 * Aircraft_weight_newton / (rho * Vel ** 2 * S)
