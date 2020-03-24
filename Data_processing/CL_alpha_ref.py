@@ -5,12 +5,12 @@ import matplotlib.pyplot as plt
 from Reduction_functions import red_velocity, red_mass
 
 #importing data
-stat_data = get_stat_data("20200311_V1.xlsx", 29, 35)
+stat_data = get_stat_data("Post_Flight_Datasheet_Flight_1_DD_12_3_2018.xlsx", 28, 34)
 
 #getting alpha values
 alpha = stat_data[:,2]
 
-W_total = 6471 #kg. starting weight
+W_total = 6679.7 #kg. starting weight
 #==================calculating density==================
 #Constants and standard sea level values
 g0 = 9.80665 #[m/s2]
@@ -22,7 +22,8 @@ b = 15.911
 S = 30
 A = (b**2) / S
 print("A", A)
-CD_list = [0.037886811044022625, 0.038114756281317386, 0.039426358085598856, 0.046545536040018834, 0.07540561851976628, 0.09414450902164993]
+CD_list_ref = [0.029279170219420586, 0.03005639762525321, 0.03222683891736139, 0.03502748902093308, 0.05606963918219729, 0.0791452770131129]
+#CD_list = [0.037886811044022625, 0.038114756281317386, 0.039426358085598856, 0.046545536040018834, 0.07540561851976628, 0.09414450902164993]
 #[0.03581365139872909,
 #temperature change per altitude
 a1 = -0.0065    #0<11km
@@ -83,17 +84,17 @@ for i in range(len(CL_list)):
     CL_squared.append(CL_list[i] ** 2)
 
 #generating cd plots
-coef_cd = np.polyfit(CL_squared,CD_list,1)
+coef_cd = np.polyfit(CL_squared,CD_list_ref,1)
 poly1d_fn_cd = np.poly1d(coef_cd)
 
 #cd plot
-plt.plot(CL_squared,CD_list, 'ob',CL_squared, poly1d_fn_cd(CL_squared))
+plt.plot(CL_squared,CD_list_ref, 'ob',CL_squared, poly1d_fn_cd(CL_squared))
 plt.ylabel('CD')
 plt.xlabel('CL^2')
-plt.title('CD-CL^2 plot test data')
+plt.title('CD-CL^2 plot test data reference data')
 
-print("e:",  1/(pi * A * coef_cd[0]))
-print("CD0:", coef_cd[1])
+print("e reference:",  1/(pi * A * coef_cd[0]))
+print("CD0 reference:", coef_cd[1])
 print("---------------------")
 plt.show()
 plt.clf()

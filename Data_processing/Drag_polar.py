@@ -20,7 +20,6 @@ rho0 = p0/(R*T0) #[kg/m3]
 
 #temperature change per altitude
 a1 = -0.0065    #0<11km
-a2 = 0          #11<20km
 
 alt = stat_data[:,0]
 
@@ -61,8 +60,8 @@ cls = np.arange(0,1.5,0.1)
 for i in cls:
     CL = i
     CL_list.append(CL**2)
-    CD = CD0 + CL**2/(np.pi*A*e)
+    CD = CD0 + (CL**2)/(np.pi*A*e)
     CD_list.append(CD)
     
-plt.plot(CD_list,CL_list)    
+plt.plot(CD_list, CL_list)
 plt.show()
