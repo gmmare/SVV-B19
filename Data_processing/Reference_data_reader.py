@@ -10,7 +10,7 @@ import numpy as np
 #data file name stationary data
 "20200310_V2.xlsx"
 
-#Functions for reading and converting the data from .mat to dictionaries.
+#Functions for reading and converting the data from .mat to dictionaries. acuired from: https://stackoverflow.com/questions/7008608/scipy-io-loadmat-nested-structures-i-e-dictionaries
 def loadmat(filename):
     '''
     this function should be called instead of direct spio.loadmat
