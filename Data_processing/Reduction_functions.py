@@ -13,7 +13,7 @@ P0      = 101325            # pressure at sea level [Pa]
 W_s     = 60500             # Standard weight in N
 m_fs    = 0.048             # standard fuel flow in kg/sec
 
-def red_velocity(hp, V_c, T_m):
+def red_velocity(hp, V_c, T_m, rho):
     '''
     :param hp: pressure height m
     :param V_c: calibrated  velocity
@@ -32,12 +32,16 @@ def red_velocity(hp, V_c, T_m):
 
     V_true = M * sqrt(gam * R * T)
 
-
     rho1 = P/(R * T)
 
     V_e = V_true * sqrt(rho1/rho0)
+<<<<<<< HEAD
     print("Re", ((V_e * 2.0569)/mu))
     return V_e, V_true, rho1#comment out V_true and rho1 for cl alpha plots
+=======
+
+    return V_e, M
+>>>>>>> 01ef6c91bb69ac817a83f13ae0f2f160d8b225ad
 
 def red_mass(V_e, W): # for the elevator trim curve
 
