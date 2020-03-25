@@ -15,7 +15,7 @@ m_fs    = 0.048             # standard fuel flow in kg/sec
 
 def red_velocity(hp, V_c, T_m):
     '''
-    :param hp: pressure height
+    :param hp: pressure height m
     :param V_c: calibrated  velocity
     :param T_m: measured temperature
     :param rho: density
@@ -25,7 +25,9 @@ def red_velocity(hp, V_c, T_m):
     P = P0 * ((1 + ((lambd * hp)/Temp0)) ** (-g/(lambd*R)))
 
     M = sqrt((2 / (gam - 1)) * ((1 + (P0/P)*(((1 + (gam - 1)/(2*gam) * (rho0/P0) * (V_c ** 2)) ** (gam/(gam - 1))) - 1)) ** ((gam - 1)/gam) - 1))
+    print("M",M)
 
+    mu = 1.725 * 10 ** -5
     T = T_m / ((1 + (gam-1)/2) * (M ** 2))
 
     V_true = M * sqrt(gam * R * T)
@@ -34,7 +36,7 @@ def red_velocity(hp, V_c, T_m):
     rho1 = P/(R * T)
 
     V_e = V_true * sqrt(rho1/rho0)
-
+    print("Re", ((V_e * 2.0569)/mu))
     return V_e, V_true, rho1#comment out V_true and rho1 for cl alpha plots
 
 def red_mass(V_e, W): # for the elevator trim curve

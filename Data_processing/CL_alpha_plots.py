@@ -34,12 +34,9 @@ alt = stat_data[:,0]
 rho_list = []
 for i in range(len(alt)):
     h = 0.3048 * alt[i] #Conversion from ft to m
-
-    #Troposphere calculations
-    if h < 11000:
-        T = T0 + a1*(h)
-        p = p0*((T/T0)**(-g0/(a1*R)))
-        rho = p/(R*T)
+    T = T0 + a1*(h)
+    p = p0*((T/T0)**(-g0/(a1*R)))
+    rho = p/(R*T)
     rho_list.append(rho)
 
 #==================converting velocity==================
@@ -49,7 +46,7 @@ TAT = stat_data[:,-1] #true air temp in degree
 red_vel = []
 for i in range(len(IAS)):
     TAS.append((np.sqrt(rho0/rho_list[i])*IAS[i])*0.514444)
-    red_vel.append(red_velocity(alt[i] * 0.3048, IAS[i]*0.514444, TAT[i] + 273,rho_list[i]))
+    red_vel.append(red_velocity(alt[i] * 0.3048, IAS[i]*0.514444, TAT[i] + 273))
 
 #==================adjusting for weight==================
 Weight_list = []

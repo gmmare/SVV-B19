@@ -73,7 +73,7 @@ def get_stat_data(filename, start_line, endline):
 
     for j in range(start_line-2, endline-2):
         row = []
-        for i in range(3,13):
+        for i in range(3,10):   #change the second value in the range into 13 instead of 10 for the CMalpha computions
             value = float(data_df.iloc[j][i])
             row.append(value)
         stat_data.append(row)

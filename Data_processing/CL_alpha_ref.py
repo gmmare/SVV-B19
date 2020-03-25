@@ -49,7 +49,7 @@ TAT = stat_data[:,-1] #true air temp in degree
 red_vel = []
 for i in range(len(IAS)):
     TAS.append((np.sqrt(rho0/rho_list[i])*IAS[i])*0.514444)
-    red_vel.append(red_velocity(alt[i] * 0.3048, IAS[i]*0.514444, TAT[i] + 273,rho_list[i]))
+    red_vel.append(red_velocity(alt[i] * 0.3048, IAS[i]*0.514444, TAT[i] + 273))
 
 #==================adjusting for weight==================
 Weight_list = []
@@ -72,7 +72,7 @@ print("CL alpha is:", coef[0])
 print("---------------------")
 plt.ylabel('CL')
 plt.xlabel('alpha')
-plt.title('CL-alpha plot')
+plt.title('CL-alpha plot reference data')
 plt.xlim(0, max(alpha)+1)
 plt.show()
 plt.clf()
@@ -90,7 +90,7 @@ poly1d_fn_cd = np.poly1d(coef_cd)
 plt.plot(CL_squared,CD_list_ref, 'ob',CL_squared, poly1d_fn_cd(CL_squared))
 plt.ylabel('CD')
 plt.xlabel('CL^2')
-plt.title('CD-CL^2 plot test data reference data')
+plt.title('CD-CL^2 plot reference data')
 
 print("e reference:",  1/(pi * A * coef_cd[0]))
 print("CD0 reference:", coef_cd[1])
