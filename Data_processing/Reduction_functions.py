@@ -34,7 +34,7 @@ def red_velocity(hp, V_c, T_m, rho):
 
     V_e = V_true * sqrt(rho1/rho0)
 
-    return V_e
+    return V_e, M
 
 def red_mass(V_e, W): # for the elevator trim curve
 

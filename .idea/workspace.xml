@@ -2,10 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="58651ed1-705d-4b09-8580-af68ca145ee4" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/SVV-B19.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/SVV-B19.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Data_processing/CL_alpha_plots.py" beforeDir="false" afterPath="$PROJECT_DIR$/Data_processing/CL_alpha_plots.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Data_processing/CM_alpha.py" beforeDir="false" afterPath="$PROJECT_DIR$/Data_processing/CM_alpha.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Data_processing/20200310_V2.xlsx" beforeDir="false" afterPath="$PROJECT_DIR$/Data_processing/20200310_V2.xlsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Data_processing/Reduction_functions.py" beforeDir="false" afterPath="$PROJECT_DIR$/Data_processing/Reduction_functions.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Data_processing/Reference_data_reader.py" beforeDir="false" afterPath="$PROJECT_DIR$/Data_processing/Reference_data_reader.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -13,27 +15,85 @@
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="CoverageDataManager">
+    <SUITE FILE_PATH="coverage/SVV_B19$Drag_polar.coverage" NAME="Drag_polar Coverage Results" MODIFIED="1584969497960" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Data_processing" />
+    <SUITE FILE_PATH="coverage/SVV_B19$CL_alpha_plots.coverage" NAME="CL_alpha_plots Coverage Results" MODIFIED="1584969611560" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Data_processing" />
+    <SUITE FILE_PATH="coverage/SVV_B19$Reference_data_reader.coverage" NAME="Reference_data_reader Coverage Results" MODIFIED="1585051631621" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Data_processing" />
+  </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/Data_processing/CL_alpha_plots.py">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Data_processing/Reference_data.mat">
+          <provider selected="true" editor-type-id="text-editor" />
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Data_processing/Reduction_functions.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="98">
-              <caret line="7" column="48" selection-start-line="7" selection-start-column="48" selection-end-line="7" selection-end-column="48" />
+            <state relative-caret-position="373">
+              <caret line="30" column="32" selection-start-line="30" selection-start-column="32" selection-end-line="30" selection-end-column="32" />
               <folding>
-                <element signature="e#0#47#0" expanded="true" />
+                <element signature="e#1#22#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/Data_processing/Reference_data_reader.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="128">
+              <caret line="390" column="18" lean-forward="true" selection-start-line="390" selection-start-column="18" selection-end-line="390" selection-end-column="18" />
+              <folding>
+                <element signature="e#0#23#0" expanded="true" />
+                <element signature="e#321#682#0" />
+                <element signature="e#711#991#0" />
+                <element signature="e#1018#1359#0" />
+                <element signature="e#1427#1811#0" />
+                <element signature="e#1905#2475#0" />
+                <element signature="e#2584#2906#1" />
+                <element signature="e#4091#4629#0" />
+                <element signature="e#4688#4896#0" />
+                <element signature="e#3498#4521#0" />
+                <element signature="e#5576#6541#0" />
+                <element signature="e#9525#10938#0" />
+                <element signature="e#6453#6493#0" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Data_processing/Reduction_functions.py">
+        <entry file="file://$PROJECT_DIR$/Cit_par.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="307">
-              <caret line="41" column="35" lean-forward="true" selection-start-line="41" selection-start-column="35" selection-end-line="41" selection-end-column="35" />
+            <state relative-caret-position="456">
+              <caret line="55" selection-start-line="55" selection-end-line="55" />
               <folding>
-                <element signature="e#1#22#0" expanded="true" />
+                <element signature="e#0#18#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Data_processing/data_processing.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="136">
+              <caret line="8" column="31" selection-start-line="8" selection-start-column="31" selection-end-line="8" selection-end-column="31" />
+              <folding>
+                <element signature="e#0#31#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Data_processing/Drag_polar.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="425">
+              <caret line="25" selection-start-line="25" selection-end-line="25" />
+              <folding>
+                <element signature="e#46#93#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -42,7 +102,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Data_processing/CM_alpha.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="624">
+            <state relative-caret-position="1343">
               <caret line="82" column="31" selection-start-line="82" selection-start-column="31" selection-end-line="82" selection-end-column="31" />
               <folding>
                 <element signature="e#0#47#0" expanded="true" />
@@ -52,24 +112,12 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Data_processing/Reference_data_reader.py">
+        <entry file="file://$PROJECT_DIR$/Data_processing/CL_alpha_plots.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2719">
-              <caret line="191" selection-start-line="191" selection-end-line="191" />
+            <state relative-caret-position="390">
+              <caret line="69" selection-start-line="69" selection-end-line="69" />
               <folding>
-                <element signature="e#0#23#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Cit_par.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="408">
-              <caret line="33" column="16" selection-start-line="33" selection-start-column="9" selection-end-line="33" selection-end-column="16" />
-              <folding>
-                <element signature="e#0#18#0" expanded="true" />
+                <element signature="e#0#47#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -95,17 +143,18 @@
         <option value="$PROJECT_DIR$/Cit_par.py" />
         <option value="$PROJECT_DIR$/Data_processing/Stationary_plots.py" />
         <option value="$PROJECT_DIR$/CM_alpha.py" />
-        <option value="$PROJECT_DIR$/Data_processing/Reference_data_reader.py" />
         <option value="$PROJECT_DIR$/Data_processing/CM_alpha.py" />
-        <option value="$PROJECT_DIR$/Data_processing/Reduction_functions.py" />
         <option value="$PROJECT_DIR$/Data_processing/CL_alpha_plots.py" />
+        <option value="$PROJECT_DIR$/Data_processing/Reduction_functions.py" />
+        <option value="$PROJECT_DIR$/Data_processing/Reference_data_reader.py" />
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds">
-    <option name="y" value="23" />
-    <option name="width" value="1663" />
-    <option name="height" value="956" />
+  <component name="ProjectFrameBounds" extendedState="6">
+    <option name="x" value="-9" />
+    <option name="y" value="-9" />
+    <option name="width" value="1664" />
+    <option name="height" value="957" />
   </component>
   <component name="ProjectView">
     <navigator proportions="" version="1">
@@ -125,18 +174,6 @@
               <item name="SVV-B19" type="462c0819:PsiDirectoryNode" />
               <item name="Data_processing" type="462c0819:PsiDirectoryNode" />
             </path>
-            <path>
-              <item name="SVV-B19" type="b2602c69:ProjectViewProjectNode" />
-              <item name="SVV-B19" type="462c0819:PsiDirectoryNode" />
-              <item name="Data_processing" type="462c0819:PsiDirectoryNode" />
-              <item name="Reduction_functions.py" type="8704e2dd:PyFileNode" />
-            </path>
-            <path>
-              <item name="SVV-B19" type="b2602c69:ProjectViewProjectNode" />
-              <item name="SVV-B19" type="462c0819:PsiDirectoryNode" />
-              <item name="Data_processing" type="462c0819:PsiDirectoryNode" />
-              <item name="Reference_data_reader.py" type="8704e2dd:PyFileNode" />
-            </path>
           </expand>
           <select />
         </subPane>
@@ -144,9 +181,13 @@
     </panes>
   </component>
   <component name="PropertiesComponent">
+    <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Menno\OneDrive\Documenten\Nieuwe map\SVV-B19\Data_processing" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/Data_processing" />
     </key>
@@ -163,7 +204,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.CL_alpha_plots">
+  <component name="RunManager" selected="Python.Reference_data_reader">
     <configuration name="CL_alpha_plots" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="SVV-B19" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -176,6 +217,7 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Data_processing/CL_alpha_plots.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
@@ -197,7 +239,52 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Data_processing/CM_alpha.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="Drag_polar" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="SVV-B19" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Data_processing" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Data_processing/Drag_polar.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="Reference_data_reader" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="SVV-B19" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Data_processing" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Data_processing/Reference_data_reader.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -209,10 +296,14 @@
     <list>
       <item itemvalue="Python.CL_alpha_plots" />
       <item itemvalue="Python.CM_alpha" />
+      <item itemvalue="Python.Reference_data_reader" />
+      <item itemvalue="Python.Drag_polar" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.Reference_data_reader" />
         <item itemvalue="Python.CL_alpha_plots" />
+        <item itemvalue="Python.Drag_polar" />
         <item itemvalue="Python.CM_alpha" />
       </list>
     </recent_temporary>
@@ -227,6 +318,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1583416665247</updated>
+      <workItem from="1584964236116" duration="34925000" />
     </task>
     <task id="LOCAL-00001" summary="changed data reading into a function">
       <created>1583487556386</created>
@@ -329,47 +421,38 @@
     <option name="localTasksCounter" value="15" />
     <servers />
   </component>
+  <component name="TimeTrackingManager">
+    <option name="totallyTimeSpent" value="37279000" />
+  </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="23" width="1663" height="956" extended-state="0" />
+    <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.2496955" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.14697987" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
-      <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Find" order="1" weight="0.3298611" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.3298611" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.39930555" />
-      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
-      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
-      <window_info anchor="bottom" id="TODO" order="6" weight="0.3298611" />
-      <window_info anchor="bottom" id="Version Control" order="7" weight="0.3298611" />
-      <window_info anchor="bottom" id="Terminal" order="8" weight="0.3298611" />
-      <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" />
-      <window_info anchor="bottom" id="Python Console" order="10" />
-      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
-      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
-      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="bottom" id="Database Changes" order="0" />
+      <window_info anchor="bottom" id="Docker" order="1" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Message" order="2" />
+      <window_info anchor="bottom" id="Find" order="3" weight="0.3298611" />
+      <window_info anchor="bottom" id="Run" order="4" visible="true" weight="0.18271954" />
+      <window_info anchor="bottom" id="Debug" order="5" weight="0.39930555" />
+      <window_info anchor="bottom" id="Cvs" order="6" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="7" weight="0.4" />
+      <window_info anchor="bottom" id="TODO" order="8" weight="0.3298611" />
+      <window_info anchor="bottom" id="Version Control" order="9" weight="0.3298611" />
+      <window_info anchor="bottom" id="Terminal" order="10" weight="0.3298611" />
+      <window_info anchor="bottom" id="Event Log" order="11" side_tool="true" />
+      <window_info anchor="bottom" id="Python Console" order="12" />
+      <window_info anchor="right" id="SciView" order="0" visible="true" weight="0.20469798" />
+      <window_info anchor="right" id="Database" order="1" />
+      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="2" type="SLIDING" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="3" weight="0.25" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="4" weight="0.25" />
     </layout>
-    <layout-to-restore>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.2496955" />
-      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
-      <window_info id="Favorites" order="2" side_tool="true" />
-      <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Find" order="1" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.3298611" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.39930555" />
-      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
-      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
-      <window_info anchor="bottom" id="TODO" order="6" weight="0.3298611" />
-      <window_info anchor="bottom" id="Version Control" order="7" weight="0.3298611" />
-      <window_info anchor="bottom" id="Terminal" order="8" weight="0.3298611" />
-      <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" />
-      <window_info anchor="bottom" id="Python Console" order="10" />
-      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
-      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
-      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
-    </layout-to-restore>
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="changed data reading into a function" />
@@ -396,16 +479,6 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Reference_data_reader.py" />
-    <entry file="file://$PROJECT_DIR$/Data_processing/data_processing.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret selection-end-line="4" selection-end-column="40" />
-          <folding>
-            <element signature="e#0#31#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Data_processing/Stationary_plots.py" />
     <entry file="file://$APPLICATION_HOME_DIR$/helpers/pydev/pydevd.py">
       <provider selected="true" editor-type-id="text-editor">
@@ -414,20 +487,8 @@
         </state>
       </provider>
     </entry>
-    <entry file="file:///usr/local/Cellar/python/3.7.2_2/Frameworks/Python.framework/Versions/3.7/lib/python3.7/enum.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="164">
-          <caret line="196" selection-start-line="196" selection-end-line="196" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../github_venv/venv/lib/python3.7/site-packages/matplotlib/mathtext.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="157">
-          <caret line="2838" selection-start-line="2838" selection-end-line="2838" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file:///usr/local/Cellar/python/3.7.2_2/Frameworks/Python.framework/Versions/3.7/lib/python3.7/enum.py" />
+    <entry file="file://$PROJECT_DIR$/../github_venv/venv/lib/python3.7/site-packages/matplotlib/mathtext.py" />
     <entry file="file://$APPLICATION_HOME_DIR$/helpers/pydev/_pydev_imps/_pydev_execfile.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="255">
@@ -435,53 +496,24 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Data_processing/Drag_polar.py">
+    <entry file="file://$PROJECT_DIR$/../github_venv/venv/lib/python3.7/site-packages/scipy/io/matlab/mio.py" />
+    <entry file="file://$USER_HOME$/AppData/Roaming/Python/Python37/site-packages/pandas/io/excel.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="172">
-          <caret line="50" column="48" lean-forward="true" selection-start-line="50" selection-start-column="48" selection-end-line="50" selection-end-column="48" />
+        <state relative-caret-position="4539">
+          <caret line="390" selection-start-line="390" selection-end-line="390" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/../github_venv/venv/lib/python3.7/site-packages/scipy/io/matlab/mio.py">
+    <entry file="file://$PROJECT_DIR$/Data_processing/FTISxprt-20200310_flight1.mat">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="150">
-          <caret line="16" column="15" lean-forward="true" selection-start-line="16" selection-start-column="15" selection-end-line="16" selection-end-column="15" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Cit_par.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="408">
-          <caret line="33" column="16" selection-start-line="33" selection-start-column="9" selection-end-line="33" selection-end-column="16" />
-          <folding>
-            <element signature="e#0#18#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Data_processing/Reference_data_reader.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2719">
-          <caret line="191" selection-start-line="191" selection-end-line="191" />
-          <folding>
-            <element signature="e#0#23#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Data_processing/Reduction_functions.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="307">
-          <caret line="41" column="35" lean-forward="true" selection-start-line="41" selection-start-column="35" selection-end-line="41" selection-end-column="35" />
-          <folding>
-            <element signature="e#1#22#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="170">
+          <caret line="10" column="37" selection-start-line="10" selection-start-column="37" selection-end-line="10" selection-end-column="37" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Data_processing/CM_alpha.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="624">
+        <state relative-caret-position="1343">
           <caret line="82" column="31" selection-start-line="82" selection-start-column="31" selection-end-line="82" selection-end-column="31" />
           <folding>
             <element signature="e#0#47#0" expanded="true" />
@@ -489,12 +521,80 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/Data_processing/FTISxprt-20200305_flight2.mat">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Data_processing/Reference_data.mat">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
     <entry file="file://$PROJECT_DIR$/Data_processing/CL_alpha_plots.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="98">
-          <caret line="7" column="48" selection-start-line="7" selection-start-column="48" selection-end-line="7" selection-end-column="48" />
+        <state relative-caret-position="390">
+          <caret line="69" selection-start-line="69" selection-end-line="69" />
           <folding>
             <element signature="e#0#47#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Data_processing/data_processing.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="8" column="31" selection-start-line="8" selection-start-column="31" selection-end-line="8" selection-end-column="31" />
+          <folding>
+            <element signature="e#0#31#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Data_processing/Drag_polar.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="425">
+          <caret line="25" selection-start-line="25" selection-end-line="25" />
+          <folding>
+            <element signature="e#46#93#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Cit_par.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="456">
+          <caret line="55" selection-start-line="55" selection-end-line="55" />
+          <folding>
+            <element signature="e#0#18#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Data_processing/Reduction_functions.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="373">
+          <caret line="30" column="32" selection-start-line="30" selection-start-column="32" selection-end-line="30" selection-end-column="32" />
+          <folding>
+            <element signature="e#1#22#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Data_processing/Reference_data_reader.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="128">
+          <caret line="390" column="18" lean-forward="true" selection-start-line="390" selection-start-column="18" selection-end-line="390" selection-end-column="18" />
+          <folding>
+            <element signature="e#0#23#0" expanded="true" />
+            <element signature="e#321#682#0" />
+            <element signature="e#711#991#0" />
+            <element signature="e#1018#1359#0" />
+            <element signature="e#1427#1811#0" />
+            <element signature="e#1905#2475#0" />
+            <element signature="e#2584#2906#1" />
+            <element signature="e#4091#4629#0" />
+            <element signature="e#4688#4896#0" />
+            <element signature="e#3498#4521#0" />
+            <element signature="e#5576#6541#0" />
+            <element signature="e#9525#10938#0" />
+            <element signature="e#6453#6493#0" />
           </folding>
         </state>
       </provider>
