@@ -35,13 +35,10 @@ def red_velocity(hp, V_c, T_m, rho):
     rho1 = P/(R * T)
 
     V_e = V_true * sqrt(rho1/rho0)
-<<<<<<< HEAD
+
     print("Re", ((V_e * 2.0569)/mu))
     return V_e, V_true, rho1#comment out V_true and rho1 for cl alpha plots
-=======
 
-    return V_e, M
->>>>>>> 01ef6c91bb69ac817a83f13ae0f2f160d8b225ad
 
 def red_mass(V_e, W): # for the elevator trim curve
 
