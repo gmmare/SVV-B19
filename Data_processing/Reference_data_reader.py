@@ -12,7 +12,7 @@ import numpy as np
 #data file name stationary data
 "20200310_V2.xlsx"
 
-#Functions for reading and converting the data from .mat to dictionaries.
+#Functions for reading and converting the data from .mat to dictionaries. acuired from: https://stackoverflow.com/questions/7008608/scipy-io-loadmat-nested-structures-i-e-dictionaries
 def loadmat(filename):
     '''
     this function should be called instead of direct spio.loadmat
@@ -75,7 +75,7 @@ def get_stat_data(filename, start_line, endline):
 
     for j in range(start_line-2, endline-2):
         row = []
-        for i in range(3,10):
+        for i in range(3,13):
             value = float(data_df.iloc[j][i])
             row.append(value)
         stat_data.append(row)
